@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final helloWorldProvider = StateProvider<String>((ref) {
-  return "Hello World!";
+final counterProvider = StateProvider<int>((ref) {
+  return 0;
 });
