@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:botanicabay/data/models/themes_model.dart';
 
-class DarkTheme {
-  static const primaryColor = Color(0xFF3498DB);
-  static const secondaryColor = Color.fromARGB(255, 48, 45, 45);
-  static const focusColor = Color.fromARGB(255, 36, 34, 34);
-  static const backgroundColor = Color(0xFF121212);
-  static const textColor = Color(0xEDEDEDED);
+class DarkTheme extends Themes {
+  @override
+  Color get primaryColor => const Color(0xFF00A170);
+
+  @override
+  Color get secondaryColor => const Color.fromARGB(255, 48, 45, 45);
+
+  @override
+  Color get focusColor => const Color(0xFF36454F);
+
+  @override
+  Color get backgroundColor => const Color(0xFF121212);
+
+  @override
+  Color get textColor => const Color(0xEDEDEDED);
+
+  @override
+  ThemeType get themeType => ThemeType.dark;
 }
