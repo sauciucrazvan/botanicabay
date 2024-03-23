@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
-import 'package:botanicabay/presentation/themes/dark_theme.dart';
-import 'package:botanicabay/presentation/themes/light_theme.dart';
 import 'package:botanicabay/presentation/screens/settings/settings_screen.dart';
 import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
 import 'package:botanicabay/presentation/screens/dashboard/providers/viewtype_provider.dart';
@@ -40,18 +38,10 @@ class DashboardScreen extends ConsumerWidget {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {
-                      // Changing themes; temporary
-                      ref.read(themesProvider.notifier).state =
-                          (theme.themeType == ThemeType.light)
-                              ? DarkTheme()
-                              : LightTheme();
-                    },
+                    onPressed: () {},
                     color: theme.textColor,
-                    icon: Icon(
-                      (theme.themeType == ThemeType.light
-                          ? Icons.nightlight
-                          : Icons.sunny),
+                    icon: const Icon(
+                      Icons.add_a_photo,
                       size: 24,
                     ),
                   ),
@@ -59,7 +49,7 @@ class DashboardScreen extends ConsumerWidget {
                     onPressed: () {},
                     color: theme.textColor,
                     icon: const Icon(
-                      Icons.add_a_photo,
+                      Icons.menu_book_rounded,
                       size: 24,
                     ),
                   ),
