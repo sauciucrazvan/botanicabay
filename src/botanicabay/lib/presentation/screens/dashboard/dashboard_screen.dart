@@ -1,11 +1,11 @@
-import 'package:botanicabay/data/models/themes_model.dart';
-import 'package:botanicabay/data/providers/theme_provider.dart';
-import 'package:botanicabay/presentation/themes/dark_theme.dart';
-import 'package:botanicabay/presentation/themes/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:botanicabay/data/models/themes_model.dart';
+import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/presentation/themes/dark_theme.dart';
+import 'package:botanicabay/presentation/themes/light_theme.dart';
 import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
 import 'package:botanicabay/presentation/screens/dashboard/providers/viewtype_provider.dart';
 
@@ -29,37 +29,49 @@ class DashboardScreen extends ConsumerWidget {
               height: 48,
             ),
             const Spacer(),
-            IconButton(
-              onPressed: () {
-                // Changing themes; temporary
-                ref.read(themesProvider.notifier).state =
-                    (theme.themeType == ThemeType.light)
-                        ? DarkTheme()
-                        : LightTheme();
-              },
-              color: theme.textColor,
-              icon: Icon(
-                (theme.themeType == ThemeType.light
-                    ? Icons.sunny
-                    : Icons.nightlight),
-                size: 24,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(16),
+                ),
+                color: theme.secondaryColor,
               ),
-            ),
-            IconButton(
-              onPressed: () {},
-              color: theme.textColor,
-              icon: const Icon(
-                Icons.add_a_photo,
-                size: 24,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              color: theme.textColor,
-              icon: Icon(
-                Icons.settings,
-                color: theme.textColor,
-                size: 24,
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // Changing themes; temporary
+                      ref.read(themesProvider.notifier).state =
+                          (theme.themeType == ThemeType.light)
+                              ? DarkTheme()
+                              : LightTheme();
+                    },
+                    color: theme.textColor,
+                    icon: Icon(
+                      (theme.themeType == ThemeType.light
+                          ? Icons.nightlight
+                          : Icons.sunny),
+                      size: 24,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    color: theme.textColor,
+                    icon: const Icon(
+                      Icons.add_a_photo,
+                      size: 24,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    color: theme.textColor,
+                    icon: Icon(
+                      Icons.settings,
+                      color: theme.textColor,
+                      size: 24,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -70,11 +82,11 @@ class DashboardScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
 
               // Title
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [

@@ -6,7 +6,7 @@ class LightTheme extends Themes {
   Color get primaryColor => const Color(0xFF00A170);
 
   @override
-  Color get secondaryColor => const Color.fromARGB(255, 245, 241, 241);
+  Color get secondaryColor => const Color.fromARGB(255, 216, 216, 216);
 
   @override
   Color get focusColor => const Color.fromARGB(255, 212, 204, 204);
