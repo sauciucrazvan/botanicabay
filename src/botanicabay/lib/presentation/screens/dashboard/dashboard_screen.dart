@@ -1,3 +1,4 @@
+import 'package:botanicabay/presentation/screens/dashboard/widgets/plant_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -147,7 +148,56 @@ class DashboardScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+
+              const SizedBox(height: 8),
+
+              // Cards
+              if (ref.watch(viewTypeProvider) == ViewType.list) ...[
+                const PlantListCard(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BDDwpe-vqtbQ-ISkue0hd_80GG8j7_rPzkASaUhnpw&s",
+                  "Money plant",
+                  "At home!",
+                  "Every day, at 10:00 AM",
+                ),
+                const PlantListCard(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQHRfR0_6Dap1-Mv-yDe7Aj5otROVqVY5kvjyD1b_xHw&s",
+                  "Happy plant",
+                  "At home!",
+                  "Every day, at 9:00 AM",
+                ),
+                const PlantListCard(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwWI0Q8nwjFc2tF_1L4USB8xOydfojOSFeZRWcAPhubg&s",
+                  "Monstera delicioasa",
+                  "At home!",
+                  "Every day, at 9:30 AM",
+                ),
+                const PlantListCard(
+                  "https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1709703400/vendor/8469/catalog/product/2/0/20200304122155_file_5e5ef4a3ccb60_5e5ef7b7cd5fa_64306f77e15a0.jpg",
+                  "Snake Plant",
+                  "At home!",
+                  "Every day, at 9:30 AM",
+                ),
+                const PlantListCard(
+                  "https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200",
+                  "Bonnie Plant",
+                  "At home!",
+                  "Every day, at 9:30 AM",
+                ),
+                const PlantListCard(
+                  "https://foli.ca/cdn/shop/products/CPCo-0366_b4e112b7-aab7-44bd-b65f-ad033ba9bc88.jpg?v=1709518733&width=4096",
+                  "Foli Plant",
+                  "At home!",
+                  "Every day, at 11:30 AM",
+                ),
+                const PlantListCard(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS9b11YWILTT41mUdGJpz17bytufnR9dylktIzqq5KWA&s",
+                  "Jasmine Plant",
+                  "At home!",
+                  "Every day, at 12:00 PM",
+                ),
+              ],
+              const SizedBox(height: 32),
             ],
           ),
         ),
