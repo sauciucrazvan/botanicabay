@@ -1,5 +1,3 @@
-<img src="https://i.imgur.com/aBiN5Eq.png" alt="BotanicaBay Logo" width="128" height="128">
+<img src="https://i.imgur.com/fLZb9uX.png" alt="BotanicaBay Logo" width="192" height="48">
 
-# BotanicaBay
-
-Unlock the wonders of plants! Our app provides personalized care tips for your plants, in a simple and engaging experience.
+Never forget to water your green friends. Let us be your plant watering reminder.
