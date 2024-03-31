@@ -1,4 +1,3 @@
-import 'package:botanicabay/presentation/screens/dashboard/widgets/grid_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +7,7 @@ import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/screens/settings/settings_screen.dart';
 import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
 import 'package:botanicabay/presentation/screens/dashboard/widgets/list_view_card.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/grid_view_card.dart';
 import 'package:botanicabay/presentation/screens/dashboard/providers/viewtype_provider.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -19,7 +19,7 @@ class DashboardScreen extends ConsumerWidget {
 
     // DEBUG DATA
     List<String> cardTitles = [
-      'this.plant.name',
+      'Test Plant',
       'Happy Plant',
       'Monstera Delicioasa',
       'Snake Plant',
@@ -185,6 +185,7 @@ class DashboardScreen extends ConsumerWidget {
                       GridViewCard(
                         backgroundImage: cardImages[i],
                         title: cardTitles[i],
+                        synced: i % 3 == 1,
                       ),
                   ],
                 ),
@@ -195,6 +196,7 @@ class DashboardScreen extends ConsumerWidget {
                   ListViewCard(
                     backgroundImage: cardImages[i],
                     title: cardTitles[i],
+                    synced: i % 3 == 0,
                   ),
               ],
               const SizedBox(height: 32),

@@ -6,11 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ListViewCard extends ConsumerWidget {
   final String backgroundImage;
   final String title;
+  final bool synced;
 
   const ListViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
+    required this.synced,
   });
 
   @override
@@ -94,14 +96,18 @@ class ListViewCard extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Icon(
-                                Icons.check,
-                                color: theme.primaryColor,
+                                synced ? Icons.sync : Icons.sync_disabled,
+                                color: synced
+                                    ? theme.primaryColor
+                                    : Colors.redAccent,
                                 size: 16,
                               ),
                               const SizedBox(width: 4),
-                              const Text(
-                                "Saved to Google Calendar",
-                                style: TextStyle(
+                              Text(
+                                synced
+                                    ? "Synced with Google Calendar"
+                                    : "Synchronization disabled",
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                 ),

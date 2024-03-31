@@ -6,11 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class GridViewCard extends ConsumerWidget {
   final String backgroundImage;
   final String title;
+  final bool synced;
 
   const GridViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
+    required this.synced,
   });
 
   @override
@@ -106,8 +108,8 @@ class GridViewCard extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Icon(
-                      Icons.check,
-                      color: theme.primaryColor,
+                      synced ? Icons.sync : Icons.sync_disabled,
+                      color: synced ? theme.primaryColor : Colors.redAccent,
                       size: 20,
                     ),
                   ),
