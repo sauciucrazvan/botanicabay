@@ -56,8 +56,9 @@ class ListViewCard extends ConsumerWidget {
                     width: 250,
                     height: 120,
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -80,7 +81,26 @@ class ListViewCard extends ConsumerWidget {
                               ),
                               const SizedBox(width: 4),
                               const Text(
-                                "Next watering in %time%",
+                                "%time% left",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.check,
+                                color: theme.primaryColor,
+                                size: 16,
+                              ),
+                              const SizedBox(width: 4),
+                              const Text(
+                                "Saved to Google Calendar",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,

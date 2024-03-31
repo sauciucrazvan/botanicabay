@@ -98,8 +98,22 @@ class GridViewCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.check,
+                      color: theme.primaryColor,
+                      size: 20,
+                    ),
+                  ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),
