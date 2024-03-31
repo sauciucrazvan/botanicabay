@@ -1,3 +1,4 @@
+import 'package:botanicabay/presentation/screens/dashboard/widgets/grid_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +16,28 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+
+    // DEBUG DATA
+    List<String> cardTitles = [
+      'this.plant.name',
+      'Happy Plant',
+      'Monstera Delicioasa',
+      'Snake Plant',
+      'Bonnie Plant',
+      'Foli Plant',
+      'Jasmine Plant',
+    ];
+
+    List<String> cardImages = [
+      'https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQHRfR0_6Dap1-Mv-yDe7Aj5otROVqVY5kvjyD1b_xHw&s',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwWI0Q8nwjFc2tF_1L4USB8xOydfojOSFeZRWcAPhubg&s',
+      'https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1709703400/vendor/8469/catalog/product/2/0/20200304122155_file_5e5ef4a3ccb60_5e5ef7b7cd5fa_64306f77e15a0.jpg',
+      'https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200',
+      'https://foli.ca/cdn/shop/products/CPCo-0366_b4e112b7-aab7-44bd-b65f-ad033ba9bc88.jpg?v=1709518733&width=4096',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS9b11YWILTT41mUdGJpz17bytufnR9dylktIzqq5KWA&s',
+    ];
+    // END DEBUG DATA
 
     return Scaffold(
       appBar: AppBar(
@@ -153,49 +176,26 @@ class DashboardScreen extends ConsumerWidget {
               const SizedBox(height: 8),
 
               // Cards
+              if (ref.watch(viewTypeProvider) == ViewType.grid) ...[
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: [
+                    for (var i = 0; i < cardTitles.length; i++)
+                      GridViewCard(
+                        backgroundImage: cardImages[i],
+                        title: cardTitles[i],
+                      ),
+                  ],
+                ),
+              ],
+
               if (ref.watch(viewTypeProvider) == ViewType.list) ...[
-                const ListViewCard(
-                  backgroundImage:
-                      "https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200",
-                  title: "this.plant.name",
-                  description: "this.plant.description",
-                ),
-                const ListViewCard(
-                  backgroundImage:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQHRfR0_6Dap1-Mv-yDe7Aj5otROVqVY5kvjyD1b_xHw&s",
-                  title: "Happy Plant",
-                  description: "this.plant.description",
-                ),
-                const ListViewCard(
-                  backgroundImage:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwWI0Q8nwjFc2tF_1L4USB8xOydfojOSFeZRWcAPhubg&s",
-                  title: "Monstera Delicioasa",
-                  description: "this.plant.description",
-                ),
-                const ListViewCard(
-                  backgroundImage:
-                      "https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1709703400/vendor/8469/catalog/product/2/0/20200304122155_file_5e5ef4a3ccb60_5e5ef7b7cd5fa_64306f77e15a0.jpg",
-                  title: "Snake Plant",
-                  description: "this.plant.description",
-                ),
-                const ListViewCard(
-                  backgroundImage:
-                      "https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200",
-                  title: "Bonnie Plant",
-                  description: "this.plant.description",
-                ),
-                const ListViewCard(
-                  backgroundImage:
-                      "https://foli.ca/cdn/shop/products/CPCo-0366_b4e112b7-aab7-44bd-b65f-ad033ba9bc88.jpg?v=1709518733&width=4096",
-                  title: "Foli Plant",
-                  description: "this.plant.description",
-                ),
-                const ListViewCard(
-                  backgroundImage:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS9b11YWILTT41mUdGJpz17bytufnR9dylktIzqq5KWA&s",
-                  title: "Jasmine Plant",
-                  description: "this.plant.description",
-                ),
+                for (var i = 0; i < cardTitles.length; i++)
+                  ListViewCard(
+                    backgroundImage: cardImages[i],
+                    title: cardTitles[i],
+                  ),
               ],
               const SizedBox(height: 32),
             ],

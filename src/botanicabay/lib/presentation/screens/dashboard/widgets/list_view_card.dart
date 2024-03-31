@@ -6,13 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ListViewCard extends ConsumerWidget {
   final String backgroundImage;
   final String title;
-  final String description;
 
   const ListViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
-    required this.description,
   });
 
   @override
@@ -71,20 +69,12 @@ class ListViewCard extends ConsumerWidget {
                             ),
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            description,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Icon(
-                                Icons.timer,
+                                Icons.water_drop,
                                 color: theme.primaryColor,
                                 size: 16,
                               ),
