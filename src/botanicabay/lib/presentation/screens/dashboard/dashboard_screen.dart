@@ -1,10 +1,11 @@
-import 'package:botanicabay/presentation/screens/journal/journal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/presentation/screens/journal/journal_screen.dart';
 import 'package:botanicabay/presentation/screens/settings/settings_screen.dart';
 import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
 import 'package:botanicabay/presentation/screens/dashboard/widgets/list_view_card.dart';
@@ -74,8 +75,9 @@ class DashboardScreen extends ConsumerWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const JournalScreen(),
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: const JournalScreen(),
                         ),
                       );
                     },
@@ -89,8 +91,9 @@ class DashboardScreen extends ConsumerWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const SettingsScreen(),
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: const SettingsScreen(),
                         ),
                       );
                     },

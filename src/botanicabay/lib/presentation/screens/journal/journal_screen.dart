@@ -11,7 +11,7 @@ class JournalScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
-    TextEditingController _journalController = TextEditingController();
+    TextEditingController journalController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +85,7 @@ class JournalScreen extends ConsumerWidget {
                     ),
                   ),
                   child: TextField(
-                    controller: _journalController,
+                    controller: journalController,
                     maxLines: 25,
                     style: TextStyle(color: theme.textColor),
                     decoration: InputDecoration(

@@ -12,7 +12,7 @@ class GreenTheme extends Themes {
   Color get focusColor => const Color.fromARGB(255, 31, 155, 38);
 
   @override
-  Color get backgroundColor => const Color.fromARGB(131, 3, 122, 29);
+  Color get backgroundColor => const Color.fromARGB(255, 4, 71, 19);
 
   @override
   Color get textColor => const Color(0xEDEDEDED);

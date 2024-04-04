@@ -12,7 +12,7 @@ class DarkTheme extends Themes {
   Color get focusColor => const Color(0xFF36454F);
 
   @override
-  Color get backgroundColor => const Color(0x00121212);
+  Color get backgroundColor => const Color(0xFF121212);
 
   @override
   Color get textColor => const Color(0xEDEDEDED);
