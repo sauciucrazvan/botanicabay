@@ -7,6 +7,7 @@ import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/screens/journal/journal_screen.dart';
 import 'package:botanicabay/presentation/screens/settings/settings_screen.dart';
+import 'package:botanicabay/presentation/screens/new_plant/new_plant_screen.dart';
 import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
 import 'package:botanicabay/presentation/screens/dashboard/widgets/list_view_card.dart';
 import 'package:botanicabay/presentation/screens/dashboard/widgets/grid_view_card.dart';
@@ -64,7 +65,15 @@ class DashboardScreen extends ConsumerWidget {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: const AddNewPlantScreen(),
+                        ),
+                      );
+                    },
                     color: theme.textColor,
                     icon: const Icon(
                       Icons.add_a_photo,
