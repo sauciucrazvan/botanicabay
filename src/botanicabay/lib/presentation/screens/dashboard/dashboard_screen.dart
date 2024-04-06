@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:botanicabay/presentation/screens/journal/journal_screen.dart';
 import 'package:botanicabay/presentation/screens/settings/settings_screen.dart';
 import 'package:botanicabay/presentation/screens/new_plant/new_plant_screen.dart';
@@ -19,6 +20,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    SettingsHandler settingsHandler = SettingsHandler();
 
     // DEBUG DATA
     List<String> cardTitles = [
@@ -155,6 +157,8 @@ class DashboardScreen extends ConsumerWidget {
                             onPressed: () {
                               ref.read(viewTypeProvider.notifier).state =
                                   ViewType.list;
+                              settingsHandler.setValue(
+                                  "plants_viewtype", "list");
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -177,6 +181,8 @@ class DashboardScreen extends ConsumerWidget {
                             onPressed: () {
                               ref.read(viewTypeProvider.notifier).state =
                                   ViewType.grid;
+                              settingsHandler.setValue(
+                                  "plants_viewtype", "grid");
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,

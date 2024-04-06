@@ -294,6 +294,8 @@ class AddNewPlantScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
+
+                const SizedBox(height: 24),
               ],
             ),
           ),
