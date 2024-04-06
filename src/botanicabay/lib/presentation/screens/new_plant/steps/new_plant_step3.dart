@@ -1,3 +1,4 @@
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ class AddNewPlantStepThree extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    LocalizationHandler localizationHandler = LocalizationHandler();
     TextEditingController variableController = TextEditingController();
     TextEditingController valueController = TextEditingController();
 
@@ -25,7 +27,8 @@ class AddNewPlantStepThree extends ConsumerWidget {
           backgroundColor: theme.primaryColor,
         ),
         title: Text(
-          "ADD A NEW PLANT (3/3)",
+          "${localizationHandler.getMessage(ref, "add_plant")} (3/3)"
+              .toUpperCase(),
           style: GoogleFonts.rubik(
             color: theme.textColor,
             fontSize: 16,
@@ -47,14 +50,16 @@ class AddNewPlantStepThree extends ConsumerWidget {
                   Column(
                     children: [
                       Text(
-                        "Add a custom variable",
+                        localizationHandler.getMessage(
+                            ref, "add_plant_custom_variable"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        "You can add custom variables to keep notes about every single plant. You'll be able to add more once you've finished.",
+                        localizationHandler.getMessage(
+                            ref, "add_plant_custom_variable_description"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 14,
@@ -83,7 +88,8 @@ class AddNewPlantStepThree extends ConsumerWidget {
                       maxLength: 16,
                       style: TextStyle(color: theme.textColor),
                       decoration: InputDecoration(
-                        hintText: 'Variable',
+                        hintText:
+                            localizationHandler.getMessage(ref, "variable"),
                         hintStyle: TextStyle(color: theme.textColor),
                         contentPadding: const EdgeInsets.all(8.0),
                         border: InputBorder.none,
@@ -114,7 +120,7 @@ class AddNewPlantStepThree extends ConsumerWidget {
                       maxLength: 1024,
                       style: TextStyle(color: theme.textColor),
                       decoration: InputDecoration(
-                        hintText: 'Value',
+                        hintText: localizationHandler.getMessage(ref, "value"),
                         hintStyle: TextStyle(color: theme.textColor),
                         contentPadding: const EdgeInsets.all(8.0),
                         border: InputBorder.none,
@@ -141,7 +147,7 @@ class AddNewPlantStepThree extends ConsumerWidget {
                           size: 20,
                         ),
                         label: Text(
-                          "Add variable",
+                          localizationHandler.getMessage(ref, "finish"),
                           style: GoogleFonts.openSans(
                             color: theme.textColor,
                             fontSize: 14,
@@ -164,7 +170,7 @@ class AddNewPlantStepThree extends ConsumerWidget {
                           size: 20,
                         ),
                         label: Text(
-                          "Skip",
+                          localizationHandler.getMessage(ref, "skip"),
                           style: GoogleFonts.openSans(
                             color: theme.textColor,
                             fontSize: 14,

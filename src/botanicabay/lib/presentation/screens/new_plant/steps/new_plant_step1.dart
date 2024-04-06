@@ -1,3 +1,4 @@
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step2.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class AddNewPlantStepOne extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    LocalizationHandler localizationHandler = LocalizationHandler();
 
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +27,8 @@ class AddNewPlantStepOne extends ConsumerWidget {
           backgroundColor: theme.primaryColor,
         ),
         title: Text(
-          "ADD A NEW PLANT (1/3)",
+          "${localizationHandler.getMessage(ref, "add_plant")} (1/3)"
+              .toUpperCase(),
           style: GoogleFonts.rubik(
             color: theme.textColor,
             fontSize: 16,
@@ -47,14 +50,16 @@ class AddNewPlantStepOne extends ConsumerWidget {
                   Column(
                     children: [
                       Text(
-                        "Let's get you started - choose a picture!",
+                        localizationHandler.getMessage(
+                            ref, "add_plant_choose_picture"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        "Choose whether you have a picture of the plant already or you want to take one right now.",
+                        localizationHandler.getMessage(
+                            ref, "add_plant_picture_description"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 14,
@@ -86,7 +91,8 @@ class AddNewPlantStepOne extends ConsumerWidget {
                           size: 20,
                         ),
                         label: Text(
-                          "Gallery",
+                          localizationHandler.getMessage(
+                              ref, "add_plant_gallery"),
                           style: GoogleFonts.openSans(
                             color: theme.textColor,
                             fontSize: 14,
@@ -101,7 +107,7 @@ class AddNewPlantStepOne extends ConsumerWidget {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        "OR",
+                        localizationHandler.getMessage(ref, "or").toUpperCase(),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 16,
@@ -127,7 +133,8 @@ class AddNewPlantStepOne extends ConsumerWidget {
                           size: 20,
                         ),
                         label: Text(
-                          "Camera",
+                          localizationHandler.getMessage(
+                              ref, "add_plant_camera"),
                           style: GoogleFonts.openSans(
                             color: theme.textColor,
                             fontSize: 14,
@@ -158,7 +165,7 @@ class AddNewPlantStepOne extends ConsumerWidget {
                       size: 20,
                     ),
                     label: Text(
-                      "Next step (debug)",
+                      localizationHandler.getMessage(ref, "next_step"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
                         fontSize: 14,

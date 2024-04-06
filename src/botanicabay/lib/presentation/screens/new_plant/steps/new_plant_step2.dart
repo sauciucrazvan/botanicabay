@@ -1,3 +1,4 @@
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step3.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:lottie/lottie.dart';
@@ -16,6 +17,7 @@ class AddNewPlantStepTwo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    LocalizationHandler localizationHandler = LocalizationHandler();
     TextEditingController nameController = TextEditingController();
 
     return Scaffold(
@@ -27,7 +29,8 @@ class AddNewPlantStepTwo extends ConsumerWidget {
           backgroundColor: theme.primaryColor,
         ),
         title: Text(
-          "ADD A NEW PLANT (2/3)",
+          "${localizationHandler.getMessage(ref, "add_plant")} (2/3)"
+              .toUpperCase(),
           style: GoogleFonts.rubik(
             color: theme.textColor,
             fontSize: 16,
@@ -49,14 +52,16 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                   Column(
                     children: [
                       Text(
-                        "Let's give your plant a name...",
+                        localizationHandler.getMessage(
+                            ref, "add_plant_choose_name"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        "This will help you identify it later. You can use anything you want - the limit is your imagination!",
+                        localizationHandler.getMessage(
+                            ref, "add_plant_choose_name_description"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 14,
@@ -84,7 +89,8 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                       maxLength: 24,
                       style: TextStyle(color: theme.textColor),
                       decoration: InputDecoration(
-                        hintText: 'Display name',
+                        hintText: localizationHandler.getMessage(
+                            ref, "add_plant_display_name"),
                         hintStyle: TextStyle(color: theme.textColor),
                         contentPadding: const EdgeInsets.all(8.0),
                         border: InputBorder.none,
@@ -101,7 +107,8 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                       if (nameController.text.isEmpty) {
                         showElevatedNotification(
                           context,
-                          "You need to name your plant.",
+                          localizationHandler.getMessage(
+                              ref, "add_plant_choose_name_warning"),
                           theme.secondaryColor,
                         );
                         return;
@@ -125,7 +132,7 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                       size: 20,
                     ),
                     label: Text(
-                      "Next step",
+                      localizationHandler.getMessage(ref, "next_step"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
                         fontSize: 14,
