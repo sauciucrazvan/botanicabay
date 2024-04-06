@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:botanicabay/config.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -133,23 +136,13 @@ class SettingsScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.info_outlined,
-                      color: theme.textColor,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 4.0),
-                    Text(
-                      "Currently using pre-release 0.3.5 (build 24/04/04)",
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  "Currently using $applicationVersion\n(running on ${Platform.operatingSystem})",
+                  style: GoogleFonts.openSans(
+                    color: theme.textColor,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

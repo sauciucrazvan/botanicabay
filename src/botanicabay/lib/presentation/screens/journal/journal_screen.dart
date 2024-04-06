@@ -1,6 +1,8 @@
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +13,9 @@ class JournalScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    SettingsHandler settingsHandler = SettingsHandler();
     TextEditingController journalController = TextEditingController();
+    journalController.text = settingsHandler.getValue('journal_value') ?? "";
 
     return Scaffold(
       appBar: AppBar(
@@ -51,14 +55,19 @@ class JournalScreen extends ConsumerWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        settingsHandler.setValue(
+                            "journal_value", journalController.text);
+                        showElevatedNotification(
+                            context,
+                            "Succesfully updated the journal.",
+                            theme.primaryColor);
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero,
                         backgroundColor: theme.primaryColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
                         ),
                       ),
                       child: Center(
