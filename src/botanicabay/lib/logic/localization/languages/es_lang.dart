@@ -1,3 +1,7 @@
+//
+// Translated with ChatGPT. Might not be accurate
+//
+
 const es = {
   "dashboard_title": "Resumen de Plantas",
   "settings": "Ajustes",

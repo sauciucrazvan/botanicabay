@@ -148,6 +148,19 @@ class SettingsScreen extends ConsumerWidget {
                         },
                         items: [
                           DropdownMenuItem(
+                            value: "de",
+                            child: Row(
+                              children: [
+                                const Text("🇩🇪"),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Deutsch",
+                                  style: TextStyle(color: theme.textColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
                             value: "en",
                             child: Row(
                               children: [
@@ -168,6 +181,19 @@ class SettingsScreen extends ConsumerWidget {
                                 const SizedBox(width: 8),
                                 Text(
                                   "Española",
+                                  style: TextStyle(color: theme.textColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: "fr",
+                            child: Row(
+                              children: [
+                                const Text("🇫🇷"),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Français",
                                   style: TextStyle(color: theme.textColor),
                                 ),
                               ],
