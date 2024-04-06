@@ -1,3 +1,4 @@
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,7 @@ class DashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     SettingsHandler settingsHandler = SettingsHandler();
+    LocalizationHandler localizationHandler = LocalizationHandler();
 
     // DEBUG DATA
     List<String> cardTitles = [
@@ -135,7 +137,7 @@ class DashboardScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Plants",
+                      localizationHandler.getMessage(ref, "dashboard_title"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
                         fontSize: 18,

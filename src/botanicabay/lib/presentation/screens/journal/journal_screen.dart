@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +19,7 @@ class JournalScreen extends ConsumerWidget {
     Themes theme = ref.watch(themesProvider);
     bool isSaving = ref.watch(inSavingStateProvider);
     SettingsHandler settingsHandler = SettingsHandler();
+    LocalizationHandler localizationHandler = LocalizationHandler();
     TextEditingController journalController = TextEditingController();
     journalController.text = settingsHandler.getValue('journal_value') ?? "";
     journalController.selection =
@@ -32,7 +34,7 @@ class JournalScreen extends ConsumerWidget {
           backgroundColor: theme.primaryColor,
         ),
         title: Text(
-          "JOURNAL",
+          localizationHandler.getMessage(ref, "journal").toUpperCase(),
           style: GoogleFonts.rubik(
             color: theme.textColor,
             fontSize: 16,
@@ -57,7 +59,7 @@ class JournalScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Your personal journal",
+                        localizationHandler.getMessage(ref, "journal_title"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
@@ -72,7 +74,8 @@ class JournalScreen extends ConsumerWidget {
                                     "journal_value", journalController.text);
                                 showElevatedNotification(
                                     context,
-                                    "Succesfully updated the journal.",
+                                    localizationHandler.getMessage(
+                                        ref, "journal_update_successful"),
                                     theme.primaryColor);
 
                                 ref.read(inSavingStateProvider.notifier).state =
@@ -119,7 +122,8 @@ class JournalScreen extends ConsumerWidget {
                       maxLines: MediaQuery.of(context).size.height ~/ 40,
                       style: TextStyle(color: theme.textColor),
                       decoration: InputDecoration(
-                        hintText: 'Take notes...',
+                        hintText: localizationHandler.getMessage(
+                            ref, "journal_take_notes"),
                         hintStyle: TextStyle(color: theme.textColor),
                         contentPadding: const EdgeInsets.all(8.0),
                         border: OutlineInputBorder(
@@ -137,7 +141,8 @@ class JournalScreen extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Make sure you save any changes. Going back to the dashboard will not save current modifications.",
+                      //"Make sure you save any changes. Going back to the dashboard will not save current modifications.",
+                      localizationHandler.getMessage(ref, "journal_disclaimer"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
                         fontSize: 14,

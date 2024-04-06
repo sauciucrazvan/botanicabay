@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:botanicabay/logic/localization/localization_handler.dart';
+import 'package:botanicabay/logic/localization/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:botanicabay/config.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +20,9 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    String locale = ref.watch(languageProvider);
     SettingsHandler settingsHandler = SettingsHandler();
+    LocalizationHandler localizationHandler = LocalizationHandler();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +33,7 @@ class SettingsScreen extends ConsumerWidget {
           backgroundColor: theme.primaryColor,
         ),
         title: Text(
-          "SETTINGS",
+          localizationHandler.getMessage(ref, "settings").toUpperCase(),
           style: GoogleFonts.rubik(
             color: theme.textColor,
             fontSize: 16,
@@ -43,14 +47,15 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               const SizedBox(height: 16),
 
-              // Title
+              // Theme
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Choose your theme",
+                      localizationHandler.getMessage(
+                          ref, "settings_choose_theme"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
                         fontSize: 15,
@@ -111,11 +116,93 @@ class SettingsScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+
+              const SizedBox(height: 12),
+
+              // Language
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      localizationHandler.getMessage(
+                          ref, "settings_choose_language"),
+                      style: GoogleFonts.openSans(
+                        color: theme.textColor,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const Spacer(),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: locale,
+                        dropdownColor: theme.secondaryColor,
+                        iconEnabledColor: theme.primaryColor,
+                        onChanged: (String? newLocale) {
+                          if (newLocale != null) {
+                            ref.read(languageProvider.notifier).state =
+                                newLocale;
+                            settingsHandler.setValue('app_language', newLocale);
+                          }
+                        },
+                        items: [
+                          DropdownMenuItem(
+                            value: "en",
+                            child: Row(
+                              children: [
+                                const Text("🇬🇧"),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "English",
+                                  style: TextStyle(color: theme.textColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: "es",
+                            child: Row(
+                              children: [
+                                const Text("🇪🇸"),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Española",
+                                  style: TextStyle(color: theme.textColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: "ro",
+                            child: Row(
+                              children: [
+                                const Text("🇷🇴"),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Română",
+                                  style: TextStyle(color: theme.textColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 16),
+
+              // Application Version
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Currently using $applicationVersion\n(running on ${Platform.operatingSystem})",
+                  localizationHandler
+                      .getMessage(ref, "settings_current_version")
+                      .replaceAll("%version%", applicationVersion)
+                      .replaceAll("%platform%", Platform.operatingSystem),
                   style: GoogleFonts.openSans(
                     color: theme.textColor,
                     fontSize: 14,
