@@ -7,8 +7,8 @@ import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/themes/dark_theme.dart';
 import 'package:botanicabay/presentation/themes/green_theme.dart';
 import 'package:botanicabay/presentation/themes/light_theme.dart';
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
-import 'package:botanicabay/presentation/screens/settings/providers/theme_setting_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -16,6 +16,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    SettingsHandler settingsHandler = SettingsHandler();
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +59,7 @@ class SettingsScreen extends ConsumerWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: ref.watch(selectedThemeProvider) == 0
+                            color: theme.id == 0
                                 ? theme.primaryColor
                                 : theme.secondaryColor,
                             borderRadius: const BorderRadius.horizontal(
@@ -66,10 +67,10 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              ref.read(selectedThemeProvider.notifier).state =
-                                  0;
                               ref.read(themesProvider.notifier).state =
                                   DarkTheme();
+
+                              settingsHandler.setValue('app_theme', 'dark');
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -82,16 +83,15 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: ref.watch(selectedThemeProvider) == 1
+                            color: theme.id == 1
                                 ? theme.primaryColor
                                 : theme.secondaryColor,
                           ),
                           child: IconButton(
                             onPressed: () {
-                              ref.read(selectedThemeProvider.notifier).state =
-                                  1;
                               ref.read(themesProvider.notifier).state =
                                   GreenTheme();
+                              settingsHandler.setValue('app_theme', 'green');
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -104,7 +104,7 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: ref.watch(selectedThemeProvider) == 2
+                            color: theme.id == 2
                                 ? theme.primaryColor
                                 : theme.secondaryColor,
                             borderRadius: const BorderRadius.horizontal(
@@ -112,10 +112,9 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              ref.read(selectedThemeProvider.notifier).state =
-                                  2;
                               ref.read(themesProvider.notifier).state =
                                   LightTheme();
+                              settingsHandler.setValue('app_theme', 'light');
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -130,7 +129,29 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.info_outlined,
+                      color: theme.textColor,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 4.0),
+                    Text(
+                      "Currently using pre-release 0.3.5 (build 24/04/04)",
+                      style: GoogleFonts.openSans(
+                        color: theme.textColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

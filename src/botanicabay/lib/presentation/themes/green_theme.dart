@@ -3,6 +3,9 @@ import 'package:botanicabay/data/models/themes_model.dart';
 
 class GreenTheme extends Themes {
   @override
+  int get id => 1;
+
+  @override
   Color get primaryColor => const Color(0xFF00A170);
 
   @override
@@ -16,7 +19,4 @@ class GreenTheme extends Themes {
 
   @override
   Color get textColor => const Color(0xEDEDEDED);
-
-  @override
-  ThemeType get themeType => ThemeType.light;
 }
