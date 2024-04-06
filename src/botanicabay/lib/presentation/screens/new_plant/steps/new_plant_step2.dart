@@ -116,7 +116,7 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                         return;
                       }
 
-                      nameController.dispose();
+                      nameController.clear();
 
                       Navigator.push(
                         context,

@@ -22,7 +22,7 @@ const en = {
       "This will help you identify it later. You can use anything you want - the limit is your imagination!",
   "add_plant_display_name": "Display Name",
   "add_plant_choose_name_warning": "You need to name your plant!",
-  "add_plant_custom_variable": "Add a custom variable",
+  "add_plant_custom_variable": "Add a custom variable (optional)",
   "add_plant_custom_variable_description":
       "You can add custom variables to keep notes about every single plant. You'll be able to add more once you've finished.",
   "variable": "Variable",

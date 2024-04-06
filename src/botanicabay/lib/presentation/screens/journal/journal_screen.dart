@@ -11,6 +11,10 @@ import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 import 'package:botanicabay/presentation/screens/journal/providers/state_provider.dart';
 
+SettingsHandler settingsHandler = SettingsHandler();
+TextEditingController journalController =
+    TextEditingController(text: settingsHandler.getValue('journal_value'));
+
 class JournalScreen extends ConsumerWidget {
   const JournalScreen({super.key});
 
@@ -18,10 +22,7 @@ class JournalScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     bool isSaving = ref.watch(inSavingStateProvider);
-    SettingsHandler settingsHandler = SettingsHandler();
     LocalizationHandler localizationHandler = LocalizationHandler();
-    TextEditingController journalController = TextEditingController();
-    journalController.text = settingsHandler.getValue('journal_value') ?? "";
     journalController.selection =
         TextSelection.collapsed(offset: journalController.text.length);
 
@@ -44,7 +45,10 @@ class JournalScreen extends ConsumerWidget {
       backgroundColor: theme.backgroundColor,
       body: PopScope(
         onPopInvoked: (didPop) {
-          if (didPop) ref.read(inSavingStateProvider.notifier).state = false;
+          if (didPop) {
+            journalController.text = settingsHandler.getValue('journal_value');
+            ref.read(inSavingStateProvider.notifier).state = false;
+          }
         },
         child: SafeArea(
           child: SingleChildScrollView(
@@ -81,7 +85,7 @@ class JournalScreen extends ConsumerWidget {
                                 ref.read(inSavingStateProvider.notifier).state =
                                     true;
                                 Timer(const Duration(seconds: 5), () {
-                                  if (!context.mounted) return;
+                                  //if (!context.mounted) return;
                                   ref
                                       .read(inSavingStateProvider.notifier)
                                       .state = false;
