@@ -91,29 +91,6 @@ class ListViewCard extends ConsumerWidget {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                synced ? Icons.sync : Icons.sync_disabled,
-                                color: synced
-                                    ? theme.primaryColor
-                                    : Colors.redAccent,
-                                size: 16,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                synced
-                                    ? "Synced with Google Calendar"
-                                    : "Synchronization disabled",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -123,8 +100,22 @@ class ListViewCard extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        synced ? Icons.sync : Icons.sync_disabled,
+                        color: synced ? theme.primaryColor : Colors.redAccent,
+                        size: 20,
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.5),
@@ -133,7 +124,7 @@ class ListViewCard extends ConsumerWidget {
                       child: const Padding(
                         padding: EdgeInsets.all(4.0),
                         child: Icon(
-                          Icons.menu,
+                          Icons.visibility,
                           color: Colors.white,
                           size: 20,
                         ),

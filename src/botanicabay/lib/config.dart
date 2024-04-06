@@ -1,1 +1,1 @@
-const applicationVersion = "BB_0.3.10 (built on 24/04/06)";
+const applicationVersion = "BB_0.3.11 (built on 24/04/06)";

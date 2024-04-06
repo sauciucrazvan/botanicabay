@@ -124,7 +124,7 @@ class GridViewCard extends ConsumerWidget {
                     child: const Padding(
                       padding: EdgeInsets.all(4.0),
                       child: Icon(
-                        Icons.menu,
+                        Icons.visibility,
                         color: Colors.white,
                         size: 20,
                       ),

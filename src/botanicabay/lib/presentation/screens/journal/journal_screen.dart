@@ -20,6 +20,8 @@ class JournalScreen extends ConsumerWidget {
     SettingsHandler settingsHandler = SettingsHandler();
     TextEditingController journalController = TextEditingController();
     journalController.text = settingsHandler.getValue('journal_value') ?? "";
+    journalController.selection =
+        TextSelection.collapsed(offset: journalController.text.length);
 
     return Scaffold(
       appBar: AppBar(
@@ -129,6 +131,18 @@ class JournalScreen extends ConsumerWidget {
                       ),
                       cursorColor: theme.primaryColor,
                       textAlignVertical: TextAlignVertical.top,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Make sure you save any changes. Going back to the dashboard will not save current modifications.",
+                      style: GoogleFonts.openSans(
+                        color: theme.textColor,
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
                   ),
                 ],

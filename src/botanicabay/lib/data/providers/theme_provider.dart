@@ -8,9 +8,7 @@ import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 
 final themesProvider = StateProvider<Themes>((ref) {
   SettingsHandler settingsHandler = SettingsHandler();
-  String theme = settingsHandler.isInitialized()
-      ? settingsHandler.getValue('app_theme')
-      : "dark";
+  String theme = settingsHandler.getValue('app_theme') ?? "dark";
 
   switch (theme) {
     case "light":
