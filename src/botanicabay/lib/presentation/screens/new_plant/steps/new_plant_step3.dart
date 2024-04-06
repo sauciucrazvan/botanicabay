@@ -1,4 +1,6 @@
+import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +11,8 @@ import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 
 class AddNewPlantStepThree extends ConsumerWidget {
-  const AddNewPlantStepThree({super.key});
+  final String plantName;
+  const AddNewPlantStepThree({super.key, required this.plantName});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -132,52 +135,44 @@ class AddNewPlantStepThree extends ConsumerWidget {
                   ),
 
                   const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(12.0),
-                          backgroundColor: theme.primaryColor,
-                        ),
-                        icon: Icon(
-                          Icons.keyboard_arrow_right_rounded,
-                          color: theme.textColor,
-                          size: 20,
-                        ),
-                        label: Text(
-                          localizationHandler.getMessage(ref, "finish"),
-                          style: GoogleFonts.openSans(
-                            color: theme.textColor,
-                            fontSize: 14,
-                          ),
-                        ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Map<String, String> variables =
+                          variableController.text.isNotEmpty
+                              ? {variableController.text: valueController.text}
+                              : {};
+                      Plant plant = Plant(plantName, variables);
+
+                      if (!plant.exists()) {
+                        plant.insert();
+                        showElevatedNotification(context,
+                            "Added the new plant!", theme.primaryColor);
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                      } else {
+                        showElevatedNotification(
+                          context,
+                          "A plant with that name already exists.",
+                          theme.secondaryColor,
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(12.0),
+                      backgroundColor: theme.primaryColor,
+                    ),
+                    icon: Icon(
+                      Icons.keyboard_arrow_right_rounded,
+                      color: theme.textColor,
+                      size: 20,
+                    ),
+                    label: Text(
+                      localizationHandler.getMessage(ref, "finish"),
+                      style: GoogleFonts.openSans(
+                        color: theme.textColor,
+                        fontSize: 14,
                       ),
-                      const SizedBox(width: 8),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(12.0),
-                          backgroundColor: theme.secondaryColor,
-                        ),
-                        icon: Icon(
-                          Icons.keyboard_arrow_right_rounded,
-                          color: theme.textColor,
-                          size: 20,
-                        ),
-                        label: Text(
-                          localizationHandler.getMessage(ref, "skip"),
-                          style: GoogleFonts.openSans(
-                            color: theme.textColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                 ],

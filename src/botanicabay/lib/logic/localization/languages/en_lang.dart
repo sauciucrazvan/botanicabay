@@ -10,6 +10,7 @@ const en = {
   "journal_take_notes": "Take notes...",
   "journal_disclaimer":
       "Make sure you save any changes. Going back to the dashboard will not save current modifications.",
+  "journal_update_successful": "Updated the journal succesfully.",
   "add_plant": "Add a new plant",
   "add_plant_choose_picture": "Let's get you started - choose a picture!",
   "add_plant_picture_description":

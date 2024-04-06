@@ -11,6 +11,8 @@ import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 import 'package:page_transition/page_transition.dart';
 
+TextEditingController nameController = TextEditingController();
+
 class AddNewPlantStepTwo extends ConsumerWidget {
   const AddNewPlantStepTwo({super.key});
 
@@ -18,7 +20,6 @@ class AddNewPlantStepTwo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     LocalizationHandler localizationHandler = LocalizationHandler();
-    TextEditingController nameController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -104,7 +105,8 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                   const SizedBox(height: 32),
                   ElevatedButton.icon(
                     onPressed: () {
-                      if (nameController.text.isEmpty) {
+                      String plantName = nameController.text;
+                      if (plantName.isEmpty) {
                         showElevatedNotification(
                           context,
                           localizationHandler.getMessage(
@@ -114,10 +116,14 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                         return;
                       }
 
+                      nameController.dispose();
+
                       Navigator.push(
                         context,
                         PageTransition(
-                          child: const AddNewPlantStepThree(),
+                          child: AddNewPlantStepThree(
+                            plantName: plantName,
+                          ),
                           type: PageTransitionType.bottomToTop,
                         ),
                       );
