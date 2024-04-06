@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/themes/dark_theme.dart';
-import 'package:botanicabay/presentation/themes/green_theme.dart';
 import 'package:botanicabay/presentation/themes/light_theme.dart';
 import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
@@ -87,27 +86,6 @@ class SettingsScreen extends ConsumerWidget {
                         Container(
                           decoration: BoxDecoration(
                             color: theme.id == 1
-                                ? theme.primaryColor
-                                : theme.secondaryColor,
-                          ),
-                          child: IconButton(
-                            onPressed: () {
-                              ref.read(themesProvider.notifier).state =
-                                  GreenTheme();
-                              settingsHandler.setValue('app_theme', 'green');
-                            },
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            color: theme.textColor,
-                            icon: const Icon(
-                              Icons.forest,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: theme.id == 2
                                 ? theme.primaryColor
                                 : theme.secondaryColor,
                             borderRadius: const BorderRadius.horizontal(

@@ -1,9 +1,14 @@
+//
+// Green Theme // botanicabay
+// Currently used as an exemple on how custom themes work.
+//
+
 import 'package:flutter/material.dart';
 import 'package:botanicabay/data/models/themes_model.dart';
 
 class GreenTheme extends Themes {
   @override
-  int get id => 1;
+  int get id => 2;
 
   @override
   Color get primaryColor => const Color(0xFF00A170);

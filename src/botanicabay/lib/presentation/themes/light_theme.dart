@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class LightTheme extends Themes {
   @override
-  int get id => 2;
+  int get id => 1;
 
   @override
   Color get primaryColor => const Color(0xFF00A170);
