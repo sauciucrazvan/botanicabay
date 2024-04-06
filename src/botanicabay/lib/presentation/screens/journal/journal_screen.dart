@@ -1,11 +1,14 @@
-import 'package:botanicabay/data/models/themes_model.dart';
-import 'package:botanicabay/data/providers/theme_provider.dart';
-import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
-import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
-import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:botanicabay/data/models/themes_model.dart';
+import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
+import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
+import 'package:botanicabay/presentation/screens/journal/providers/state_provider.dart';
 
 class JournalScreen extends ConsumerWidget {
   const JournalScreen({super.key});
@@ -13,6 +16,7 @@ class JournalScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    bool isSaving = ref.watch(inSavingStateProvider);
     SettingsHandler settingsHandler = SettingsHandler();
     TextEditingController journalController = TextEditingController();
     journalController.text = settingsHandler.getValue('journal_value') ?? "";
@@ -34,80 +38,101 @@ class JournalScreen extends ConsumerWidget {
         ),
       ),
       backgroundColor: theme.backgroundColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 16),
+      body: PopScope(
+        onPopInvoked: (didPop) {
+          if (didPop) ref.read(inSavingStateProvider.notifier).state = false;
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 16),
 
-                // Title
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Your personal journal",
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        settingsHandler.setValue(
-                            "journal_value", journalController.text);
-                        showElevatedNotification(
-                            context,
-                            "Succesfully updated the journal.",
-                            theme.primaryColor);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        backgroundColor: theme.primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.save_rounded,
+                  // Title
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Your personal journal",
+                        style: GoogleFonts.openSans(
                           color: theme.textColor,
-                          size: 20,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    )
-                  ],
-                ),
+                      ElevatedButton(
+                        onPressed: isSaving
+                            ? () {}
+                            : () {
+                                settingsHandler.setValue(
+                                    "journal_value", journalController.text);
+                                showElevatedNotification(
+                                    context,
+                                    "Succesfully updated the journal.",
+                                    theme.primaryColor);
 
-                const SizedBox(height: 16),
+                                ref.read(inSavingStateProvider.notifier).state =
+                                    true;
+                                Timer(const Duration(seconds: 5), () {
+                                  if (!context.mounted) return;
+                                  ref
+                                      .read(inSavingStateProvider.notifier)
+                                      .state = false;
+                                });
+                              },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(12),
+                          backgroundColor: isSaving
+                              ? theme.primaryColor
+                              : theme.secondaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                        ),
+                        child: Icon(
+                          isSaving ? Icons.check : Icons.save_alt_rounded,
+                          color: theme.textColor,
+                          size: 24,
+                        ),
+                      )
+                    ],
+                  ),
 
-                // Journal Box
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      left: BorderSide(
-                        color: theme.primaryColor,
-                        width: 2.0,
+                  const SizedBox(height: 16),
+
+                  // Journal Box
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                          color: theme.primaryColor,
+                          width: 2.0,
+                        ),
                       ),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: TextField(
+                      controller: journalController,
+                      maxLines: MediaQuery.of(context).size.height ~/ 40,
+                      style: TextStyle(color: theme.textColor),
+                      decoration: InputDecoration(
+                        hintText: 'Take notes...',
+                        hintStyle: TextStyle(color: theme.textColor),
+                        contentPadding: const EdgeInsets.all(8.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        focusedBorder: InputBorder.none,
+                        fillColor: theme.secondaryColor,
+                        filled: true,
+                      ),
+                      cursorColor: theme.primaryColor,
+                      textAlignVertical: TextAlignVertical.top,
                     ),
                   ),
-                  child: TextField(
-                    controller: journalController,
-                    maxLines: 25,
-                    style: TextStyle(color: theme.textColor),
-                    decoration: InputDecoration(
-                      hintText: 'Take notes...',
-                      hintStyle: TextStyle(color: theme.textColor),
-                      contentPadding: const EdgeInsets.all(8.0),
-                      border: InputBorder.none,
-                    ),
-                    cursorColor: theme.primaryColor,
-                    textAlignVertical: TextAlignVertical.top,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
