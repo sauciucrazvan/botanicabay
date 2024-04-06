@@ -141,7 +141,6 @@ class JournalScreen extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      //"Make sure you save any changes. Going back to the dashboard will not save current modifications.",
                       localizationHandler.getMessage(ref, "journal_disclaimer"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
