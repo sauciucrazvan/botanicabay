@@ -24,6 +24,13 @@ class AddNewPlantImage extends ConsumerWidget {
 
     LocalizationHandler localizationHandler = LocalizationHandler();
 
+    double dividerWidth = (localizationHandler
+                    .getMessage(ref, "add_plant_gallery")
+                    .length +
+                localizationHandler.getMessage(ref, "add_plant_camera").length)
+            .toDouble() /
+        2;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -131,7 +138,7 @@ class AddNewPlantImage extends ConsumerWidget {
                       ),
                       const SizedBox(width: 10),
                       Container(
-                        width: 20,
+                        width: dividerWidth,
                         height: 3,
                         decoration: BoxDecoration(color: theme.textColor),
                       ),
@@ -146,7 +153,7 @@ class AddNewPlantImage extends ConsumerWidget {
                       ),
                       const SizedBox(width: 5),
                       Container(
-                        width: 20,
+                        width: dividerWidth,
                         height: 3,
                         decoration: BoxDecoration(color: theme.textColor),
                       ),
