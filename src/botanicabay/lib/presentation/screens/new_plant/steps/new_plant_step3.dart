@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 
-import 'package:botanicabay/data/models/plant_model.dart';
-import 'package:botanicabay/logic/localization/localization_handler.dart';
-import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
+import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/data/providers/plants_provider.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 
 class AddNewPlantStepThree extends HookConsumerWidget {
@@ -150,6 +151,8 @@ class AddNewPlantStepThree extends HookConsumerWidget {
 
                       if (!plant.exists()) {
                         plant.insert();
+                        // ignore: unused_result
+                        ref.refresh(plantsProvider.notifier);
                         showElevatedNotification(context,
                             "Added the new plant!", theme.primaryColor);
                         Navigator.of(context)
