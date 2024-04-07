@@ -1,17 +1,18 @@
 import 'dart:io';
 
-import 'package:botanicabay/logic/localization/localization_handler.dart';
-import 'package:botanicabay/logic/localization/providers/language_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:botanicabay/config.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:botanicabay/config.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
+import 'package:botanicabay/logic/localization/providers/language_provider.dart';
 import 'package:botanicabay/presentation/themes/dark_theme.dart';
 import 'package:botanicabay/presentation/themes/light_theme.dart';
-import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 
 class SettingsScreen extends ConsumerWidget {

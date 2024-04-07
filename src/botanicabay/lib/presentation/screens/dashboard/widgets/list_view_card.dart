@@ -1,9 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:botanicabay/data/models/themes_model.dart';
-import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:botanicabay/data/models/themes_model.dart';
+import 'package:botanicabay/data/providers/theme_provider.dart';
 
 class ListViewCard extends ConsumerWidget {
   final Uint8List backgroundImage;

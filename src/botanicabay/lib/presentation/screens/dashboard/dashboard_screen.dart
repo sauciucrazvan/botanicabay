@@ -1,5 +1,3 @@
-import 'package:botanicabay/data/providers/plants_provider.dart';
-import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +5,9 @@ import 'package:page_transition/page_transition.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/data/providers/plants_provider.dart';
 import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/screens/journal/journal_screen.dart';
 import 'package:botanicabay/presentation/screens/settings/settings_screen.dart';
 import 'package:botanicabay/presentation/screens/new_plant/new_plant_screen.dart';
@@ -137,10 +137,9 @@ class DashboardScreen extends ConsumerWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              ref.read(viewTypeProvider.notifier).state =
-                                  ViewType.list;
                               settingsHandler.setValue(
-                                  "plants_viewtype", "list");
+                                  "plants_viewtype", ViewType.list);
+                              ref.invalidate(viewTypeProvider);
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -161,10 +160,9 @@ class DashboardScreen extends ConsumerWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              ref.read(viewTypeProvider.notifier).state =
-                                  ViewType.grid;
                               settingsHandler.setValue(
-                                  "plants_viewtype", "grid");
+                                  "plants_viewtype", ViewType.grid);
+                              ref.invalidate(viewTypeProvider);
                             },
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -189,10 +187,10 @@ class DashboardScreen extends ConsumerWidget {
                   spacing: 8.0,
                   runSpacing: 8.0,
                   children: [
-                    for (var i = 0; i < plants.length; i++)
+                    for (var entry in plants.entries)
                       GridViewCard(
-                        backgroundImage: plants.values.elementAt(i)['image'],
-                        title: plants.keys.elementAt(i),
+                        backgroundImage: entry.value.image,
+                        title: entry.key,
                         synced: false,
                       ),
                   ],
@@ -200,10 +198,10 @@ class DashboardScreen extends ConsumerWidget {
               ],
 
               if (ref.watch(viewTypeProvider) == ViewType.list) ...[
-                for (var i = 0; i < plants.length; i++)
+                for (var entry in plants.entries)
                   ListViewCard(
-                    backgroundImage: plants.values.elementAt(i)['image'],
-                    title: plants.keys.elementAt(i),
+                    backgroundImage: entry.value.image,
+                    title: entry.key,
                     synced: false,
                   ),
               ],

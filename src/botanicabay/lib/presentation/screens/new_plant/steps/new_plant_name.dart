@@ -1,31 +1,30 @@
 import 'dart:typed_data';
 
-import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
-import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
-import 'package:botanicabay/data/providers/plants_provider.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
+import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_variables.dart';
 
-class AddNewPlantStepThree extends HookConsumerWidget {
-  final String plantName;
+class AddNewPlantName extends HookConsumerWidget {
   final Uint8List imageBytes;
-  const AddNewPlantStepThree(
-      {super.key, required this.plantName, required this.imageBytes});
+  const AddNewPlantName({super.key, required this.imageBytes});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+
+    TextEditingController nameController = useTextEditingController();
+
     LocalizationHandler localizationHandler = LocalizationHandler();
-    TextEditingController variableController = useTextEditingController();
-    TextEditingController valueController = useTextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +35,7 @@ class AddNewPlantStepThree extends HookConsumerWidget {
           backgroundColor: theme.primaryColor,
         ),
         title: Text(
-          "${localizationHandler.getMessage(ref, "add_plant")} (3/3)"
+          "${localizationHandler.getMessage(ref, "add_plant")} (2/3)"
               .toUpperCase(),
           style: GoogleFonts.rubik(
             color: theme.textColor,
@@ -53,14 +52,14 @@ class AddNewPlantStepThree extends HookConsumerWidget {
               child: Column(
                 children: [
                   // Choose a picture
-                  Lottie.asset("assets/animations/custom_variable.json",
+                  Lottie.asset("assets/animations/name_your_plant.json",
                       width: 128, height: 128),
 
                   Column(
                     children: [
                       Text(
                         localizationHandler.getMessage(
-                            ref, "add_plant_custom_variable"),
+                            ref, "add_plant_choose_name"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
@@ -68,7 +67,7 @@ class AddNewPlantStepThree extends HookConsumerWidget {
                       ),
                       Text(
                         localizationHandler.getMessage(
-                            ref, "add_plant_custom_variable_description"),
+                            ref, "add_plant_choose_name_description"),
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 14,
@@ -90,46 +89,14 @@ class AddNewPlantStepThree extends HookConsumerWidget {
                       color: theme.secondaryColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    width: MediaQuery.of(context).size.width - 100,
                     child: TextField(
-                      controller: variableController,
+                      controller: nameController,
                       maxLines: 1,
-                      maxLength: 16,
+                      maxLength: 24,
                       style: TextStyle(color: theme.textColor),
                       decoration: InputDecoration(
-                        hintText:
-                            localizationHandler.getMessage(ref, "variable"),
-                        hintStyle: TextStyle(color: theme.textColor),
-                        contentPadding: const EdgeInsets.all(8.0),
-                        border: InputBorder.none,
-                        counterText: "",
-                      ),
-                      cursorColor: theme.primaryColor,
-                      textAlignVertical: TextAlignVertical.top,
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
-                  Icon(
-                    Icons.arrow_downward_rounded,
-                    color: theme.primaryColor,
-                    size: 32,
-                  ),
-                  const SizedBox(height: 8),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      color: theme.secondaryColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    width: MediaQuery.of(context).size.width - 100,
-                    child: TextField(
-                      controller: valueController,
-                      maxLines: 1,
-                      maxLength: 1024,
-                      style: TextStyle(color: theme.textColor),
-                      decoration: InputDecoration(
-                        hintText: localizationHandler.getMessage(ref, "value"),
+                        hintText: localizationHandler.getMessage(
+                            ref, "add_plant_display_name"),
                         hintStyle: TextStyle(color: theme.textColor),
                         contentPadding: const EdgeInsets.all(8.0),
                         border: InputBorder.none,
@@ -143,27 +110,27 @@ class AddNewPlantStepThree extends HookConsumerWidget {
                   const SizedBox(height: 32),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Map<String, String> variables =
-                          variableController.text.isNotEmpty
-                              ? {variableController.text: valueController.text}
-                              : {};
-                      Plant plant = Plant(plantName, imageBytes, variables);
-
-                      if (!plant.exists()) {
-                        plant.insert();
-                        // ignore: unused_result
-                        ref.refresh(plantsProvider.notifier);
-                        showElevatedNotification(context,
-                            "Added the new plant!", theme.primaryColor);
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                      } else {
+                      String plantName = nameController.text;
+                      if (plantName.isEmpty) {
                         showElevatedNotification(
                           context,
-                          "A plant with that name already exists.",
+                          localizationHandler.getMessage(
+                              ref, "add_plant_choose_name_warning"),
                           theme.secondaryColor,
                         );
+                        return;
                       }
+
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: AddNewPlantVariables(
+                            plantName: plantName,
+                            imageBytes: imageBytes,
+                          ),
+                          type: PageTransitionType.bottomToTop,
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(12.0),
@@ -175,7 +142,7 @@ class AddNewPlantStepThree extends HookConsumerWidget {
                       size: 20,
                     ),
                     label: Text(
-                      localizationHandler.getMessage(ref, "finish"),
+                      localizationHandler.getMessage(ref, "next_step"),
                       style: GoogleFonts.openSans(
                         color: theme.textColor,
                         fontSize: 14,

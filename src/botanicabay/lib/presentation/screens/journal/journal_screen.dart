@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,10 +20,12 @@ class JournalScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     bool isSaving = ref.watch(inSavingStateProvider);
+
     SettingsHandler settingsHandler = SettingsHandler();
+    LocalizationHandler localizationHandler = LocalizationHandler();
+
     TextEditingController journalController = useTextEditingController(
         text: settingsHandler.getValue('journal_value'));
-    LocalizationHandler localizationHandler = LocalizationHandler();
     journalController.selection =
         TextSelection.collapsed(offset: journalController.text.length);
 
@@ -82,7 +85,6 @@ class JournalScreen extends HookConsumerWidget {
                                 ref.read(inSavingStateProvider.notifier).state =
                                     true;
                                 Timer(const Duration(seconds: 5), () {
-                                  //if (!context.mounted) return;
                                   ref
                                       .read(inSavingStateProvider.notifier)
                                       .state = false;

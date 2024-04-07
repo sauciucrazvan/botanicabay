@@ -1,27 +1,14 @@
 import 'dart:typed_data';
-
 import 'package:hive/hive.dart';
 
-class Plant {
-  final plantsDatabase = Hive.box('plants');
+part 'plant_model.g.dart';
 
-  String name;
+@HiveType(typeId: 1)
+class Plant extends HiveObject {
+  @HiveField(0)
   Uint8List image;
+  @HiveField(1)
   Map<String, String>? variables;
 
-  Plant(this.name, this.image, this.variables);
-
-  String getName() => name;
-  Uint8List getImage() => image;
-  Map? getVariables() => variables;
-
-  bool exists() => plantsDatabase.containsKey(name);
-
-  void insert() {
-    plantsDatabase.put(name, {
-      "createdAt": DateTime.now().toIso8601String(),
-      "image": image,
-      "variables": variables,
-    });
-  }
+  Plant(this.image, this.variables);
 }
