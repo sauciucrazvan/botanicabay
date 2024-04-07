@@ -135,85 +135,70 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                     ),
                     const Spacer(),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: locale,
-                        dropdownColor: theme.secondaryColor,
-                        iconEnabledColor: theme.primaryColor,
-                        onChanged: (String? newLocale) {
-                          if (newLocale != null) {
-                            ref.read(languageProvider.notifier).state =
-                                newLocale;
-                            settingsHandler.setValue('app_language', newLocale);
-                          }
-                        },
-                        items: [
-                          DropdownMenuItem(
-                            value: "de",
-                            child: Row(
-                              children: [
-                                const Text("🇩🇪"),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "Deutsch",
-                                  style: TextStyle(color: theme.textColor),
-                                ),
-                              ],
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.focusColor,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      padding: const EdgeInsets.all(6),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: locale,
+                          dropdownColor: theme.secondaryColor,
+                          iconEnabledColor: theme.primaryColor,
+                          onChanged: (String? newLocale) {
+                            if (newLocale != null) {
+                              ref.read(languageProvider.notifier).state =
+                                  newLocale;
+                              settingsHandler.setValue(
+                                  'app_language', newLocale);
+                            }
+                          },
+                          items: [
+                            DropdownMenuItem(
+                              value: "de",
+                              child: Text(
+                                "🇩🇪 Deutsch",
+                                style: TextStyle(color: theme.textColor),
+                              ),
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: "en",
-                            child: Row(
-                              children: [
-                                const Text("🇬🇧"),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "English",
-                                  style: TextStyle(color: theme.textColor),
-                                ),
-                              ],
+                            DropdownMenuItem(
+                              value: "en",
+                              child: Text(
+                                "🇬🇧 English",
+                                style: TextStyle(color: theme.textColor),
+                              ),
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: "es",
-                            child: Row(
-                              children: [
-                                const Text("🇪🇸"),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "Española",
-                                  style: TextStyle(color: theme.textColor),
-                                ),
-                              ],
+                            DropdownMenuItem(
+                              value: "es",
+                              child: Text(
+                                "🇪🇸 Española",
+                                style: TextStyle(color: theme.textColor),
+                              ),
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: "fr",
-                            child: Row(
-                              children: [
-                                const Text("🇫🇷"),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "Français",
-                                  style: TextStyle(color: theme.textColor),
-                                ),
-                              ],
+                            DropdownMenuItem(
+                              value: "fr",
+                              child: Text(
+                                "🇫🇷 Français",
+                                style: TextStyle(color: theme.textColor),
+                              ),
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: "ro",
-                            child: Row(
-                              children: [
-                                const Text("🇷🇴"),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "Română",
-                                  style: TextStyle(color: theme.textColor),
-                                ),
-                              ],
+                            DropdownMenuItem(
+                              value: "it",
+                              child: Text(
+                                "🇮🇹 Italiana",
+                                style: TextStyle(color: theme.textColor),
+                              ),
                             ),
-                          ),
-                        ],
+                            DropdownMenuItem(
+                              value: "ro",
+                              child: Text(
+                                "🇷🇴 Română",
+                                style: TextStyle(color: theme.textColor),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

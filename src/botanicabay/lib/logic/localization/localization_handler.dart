@@ -1,3 +1,4 @@
+import 'package:botanicabay/logic/localization/languages/it_lang.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:botanicabay/logic/localization/languages/de_lang.dart';
@@ -20,9 +21,11 @@ class LocalizationHandler {
         return es[id] ?? "%undefined%";
       case "fr":
         return fr[id] ?? "%undefined%";
+      case "it":
+        return it[id] ?? "%undefined%";
       case "ro":
         return ro[id] ?? "%undefined%";
     }
-    return "";
+    return "%undefined%";
   }
 }

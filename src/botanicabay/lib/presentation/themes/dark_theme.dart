@@ -12,7 +12,7 @@ class DarkTheme extends Themes {
   Color get secondaryColor => const Color.fromARGB(255, 48, 45, 45);
 
   @override
-  Color get focusColor => const Color(0xFF36454F);
+  Color get focusColor => const Color.fromARGB(255, 34, 39, 36);
 
   @override
   Color get backgroundColor => const Color(0xFF121212);
