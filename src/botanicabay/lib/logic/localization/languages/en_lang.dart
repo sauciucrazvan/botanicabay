@@ -27,9 +27,13 @@ const en = {
   "add_plant_custom_variable_description":
       "You can add custom variables to keep notes about every single plant. You'll be able to add more once you've finished.",
   "variable": "Variable",
+  "variables": "Variable(s)",
   "value": "Value",
   "finish": "Finish",
-  "skip": "Skip",
-  "next_step": "Next step",
+  "alert": "Alert",
   "or": "or",
+  "next_step": "Next step",
+  "view_plants_delete_confirmation":
+      "Are you sure you want to delete '%plant_name%'?",
+  "view_plants_delete_notification": "Succesfully removed '%plant_name%'.",
 };

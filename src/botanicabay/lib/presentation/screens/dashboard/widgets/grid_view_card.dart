@@ -6,16 +6,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 
+import 'package:botanicabay/presentation/screens/dashboard/widgets/view_card.dart';
+
 class GridViewCard extends ConsumerWidget {
   final Uint8List backgroundImage;
   final String title;
   final bool synced;
+  final Map? variables;
 
   const GridViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
     required this.synced,
+    required this.variables,
   });
 
   @override
@@ -117,19 +121,30 @@ class GridViewCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(12),
+                GestureDetector(
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (context) => ViewCard(
+                      backgroundImage: backgroundImage,
+                      title: title,
+                      synced: synced,
+                      variables: variables,
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Icon(
-                        Icons.visibility,
-                        color: Colors.white,
-                        size: 20,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.visibility,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
