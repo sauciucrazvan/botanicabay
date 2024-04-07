@@ -1,24 +1,24 @@
-import 'package:botanicabay/logic/localization/localization_handler.dart';
-import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step3.dart';
-import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:page_transition/page_transition.dart';
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step3.dart';
 
-TextEditingController nameController = TextEditingController();
-
-class AddNewPlantStepTwo extends ConsumerWidget {
+class AddNewPlantStepTwo extends HookConsumerWidget {
   const AddNewPlantStepTwo({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    TextEditingController nameController = useTextEditingController();
     LocalizationHandler localizationHandler = LocalizationHandler();
 
     return Scaffold(
@@ -115,8 +115,6 @@ class AddNewPlantStepTwo extends ConsumerWidget {
                         );
                         return;
                       }
-
-                      nameController.clear();
 
                       Navigator.push(
                         context,

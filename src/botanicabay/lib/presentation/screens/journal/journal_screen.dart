@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,18 +11,18 @@ import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 import 'package:botanicabay/presentation/screens/journal/providers/state_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-SettingsHandler settingsHandler = SettingsHandler();
-TextEditingController journalController =
-    TextEditingController(text: settingsHandler.getValue('journal_value'));
-
-class JournalScreen extends ConsumerWidget {
+class JournalScreen extends HookConsumerWidget {
   const JournalScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     bool isSaving = ref.watch(inSavingStateProvider);
+    SettingsHandler settingsHandler = SettingsHandler();
+    TextEditingController journalController = useTextEditingController(
+        text: settingsHandler.getValue('journal_value'));
     LocalizationHandler localizationHandler = LocalizationHandler();
     journalController.selection =
         TextSelection.collapsed(offset: journalController.text.length);
@@ -45,10 +46,7 @@ class JournalScreen extends ConsumerWidget {
       backgroundColor: theme.backgroundColor,
       body: PopScope(
         onPopInvoked: (didPop) {
-          if (didPop) {
-            journalController.text = settingsHandler.getValue('journal_value');
-            ref.read(inSavingStateProvider.notifier).state = false;
-          }
+          if (didPop) ref.read(inSavingStateProvider.notifier).state = false;
         },
         child: SafeArea(
           child: SingleChildScrollView(

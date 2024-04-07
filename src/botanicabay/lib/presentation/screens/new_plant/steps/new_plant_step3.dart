@@ -1,16 +1,17 @@
 import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
 
-class AddNewPlantStepThree extends ConsumerWidget {
+class AddNewPlantStepThree extends HookConsumerWidget {
   final String plantName;
   const AddNewPlantStepThree({super.key, required this.plantName});
 
@@ -18,8 +19,8 @@ class AddNewPlantStepThree extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     LocalizationHandler localizationHandler = LocalizationHandler();
-    TextEditingController variableController = TextEditingController();
-    TextEditingController valueController = TextEditingController();
+    TextEditingController variableController = useTextEditingController();
+    TextEditingController valueController = useTextEditingController();
 
     return Scaffold(
       appBar: AppBar(
