@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +15,8 @@ import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.d
 import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step3.dart';
 
 class AddNewPlantStepTwo extends HookConsumerWidget {
-  const AddNewPlantStepTwo({super.key});
+  final Uint8List imageBytes;
+  const AddNewPlantStepTwo({super.key, required this.imageBytes});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -121,6 +124,7 @@ class AddNewPlantStepTwo extends HookConsumerWidget {
                         PageTransition(
                           child: AddNewPlantStepThree(
                             plantName: plantName,
+                            imageBytes: imageBytes,
                           ),
                           type: PageTransitionType.bottomToTop,
                         ),

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
@@ -13,7 +15,9 @@ import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.d
 
 class AddNewPlantStepThree extends HookConsumerWidget {
   final String plantName;
-  const AddNewPlantStepThree({super.key, required this.plantName});
+  final Uint8List imageBytes;
+  const AddNewPlantStepThree(
+      {super.key, required this.plantName, required this.imageBytes});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -142,7 +146,7 @@ class AddNewPlantStepThree extends HookConsumerWidget {
                           variableController.text.isNotEmpty
                               ? {variableController.text: valueController.text}
                               : {};
-                      Plant plant = Plant(plantName, variables);
+                      Plant plant = Plant(plantName, imageBytes, variables);
 
                       if (!plant.exists()) {
                         plant.insert();

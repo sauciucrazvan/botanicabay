@@ -17,6 +17,7 @@ const en = {
       "Choose whether you have a picture of the plant already or you want to take one right now.",
   "add_plant_gallery": "Gallery",
   "add_plant_camera": "Camera",
+  "add_plant_invalid_image": "The image you provided is invalid.",
   "add_plant_choose_name": "Let's give your plant a name...",
   "add_plant_choose_name_description":
       "This will help you identify it later. You can use anything you want - the limit is your imagination!",

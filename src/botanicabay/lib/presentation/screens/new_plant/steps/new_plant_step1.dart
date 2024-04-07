@@ -1,14 +1,19 @@
-import 'package:botanicabay/logic/localization/localization_handler.dart';
-import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step2.dart';
+import 'dart:typed_data';
+
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
+import 'package:botanicabay/logic/image_picker/image_picker.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:botanicabay/presentation/screens/new_plant/steps/new_plant_step2.dart';
 
 class AddNewPlantStepOne extends ConsumerWidget {
   const AddNewPlantStepOne({super.key});
@@ -84,7 +89,31 @@ class AddNewPlantStepOne extends ConsumerWidget {
                           padding: const EdgeInsets.all(12.0),
                           backgroundColor: theme.secondaryColor,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          Uint8List? imageBytes = await ImageSelector()
+                              .pickImage(ImageSource.gallery);
+
+                          if (context.mounted) {
+                            if (imageBytes == null) {
+                              showElevatedNotification(
+                                  context,
+                                  localizationHandler.getMessage(
+                                      ref, "add_plant_invalid_image"),
+                                  theme.secondaryColor);
+                              return;
+                            }
+
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: AddNewPlantStepTwo(
+                                  imageBytes: imageBytes,
+                                ),
+                                type: PageTransitionType.bottomToTop,
+                              ),
+                            );
+                          }
+                        },
                         icon: Icon(
                           Icons.image,
                           color: theme.textColor,
@@ -126,7 +155,31 @@ class AddNewPlantStepOne extends ConsumerWidget {
                           padding: const EdgeInsets.all(12.0),
                           backgroundColor: theme.secondaryColor,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          Uint8List? imageBytes = await ImageSelector()
+                              .pickImage(ImageSource.camera);
+
+                          if (context.mounted) {
+                            if (imageBytes == null) {
+                              showElevatedNotification(
+                                  context,
+                                  localizationHandler.getMessage(
+                                      ref, "add_plant_invalid_image"),
+                                  theme.secondaryColor);
+                              return;
+                            }
+
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: AddNewPlantStepTwo(
+                                  imageBytes: imageBytes,
+                                ),
+                                type: PageTransitionType.bottomToTop,
+                              ),
+                            );
+                          }
+                        },
                         icon: Icon(
                           Icons.camera_alt_rounded,
                           color: theme.textColor,
@@ -142,35 +195,6 @@ class AddNewPlantStepOne extends ConsumerWidget {
                         ),
                       ),
                     ],
-                  ),
-
-                  const SizedBox(height: 32),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: const AddNewPlantStepTwo(),
-                          type: PageTransitionType.bottomToTop,
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(12.0),
-                      backgroundColor: theme.primaryColor,
-                    ),
-                    icon: Icon(
-                      Icons.keyboard_arrow_right_rounded,
-                      color: theme.textColor,
-                      size: 20,
-                    ),
-                    label: Text(
-                      localizationHandler.getMessage(ref, "next_step"),
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 14,
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 16),
                 ],
