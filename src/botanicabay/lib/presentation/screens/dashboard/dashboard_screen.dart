@@ -116,12 +116,15 @@ class DashboardScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      localizationHandler.getMessage(ref, "dashboard_title"),
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 1.75,
+                      child: Text(
+                        localizationHandler.getMessage(ref, "dashboard_title"),
+                        style: GoogleFonts.openSans(
+                          color: theme.textColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const Spacer(),

@@ -54,12 +54,15 @@ class SettingsScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      localizationHandler.getMessage(
-                          ref, "settings_choose_theme"),
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 15,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        localizationHandler.getMessage(
+                            ref, "settings_choose_theme"),
+                        style: GoogleFonts.openSans(
+                          color: theme.textColor,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                     const Spacer(),
@@ -126,18 +129,21 @@ class SettingsScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      localizationHandler.getMessage(
-                          ref, "settings_choose_language"),
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 15,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        localizationHandler.getMessage(
+                            ref, "settings_choose_language"),
+                        style: GoogleFonts.openSans(
+                          color: theme.textColor,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                     const Spacer(),
                     Container(
                       decoration: BoxDecoration(
-                        color: theme.focusColor,
+                        color: theme.secondaryColor,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       padding: const EdgeInsets.all(6),
