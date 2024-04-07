@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:botanicabay/data/models/themes_model.dart';
@@ -25,25 +28,22 @@ class DashboardScreen extends ConsumerWidget {
     LocalizationHandler localizationHandler = LocalizationHandler();
 
     // DEBUG DATA
-    List<String> cardTitles = [
-      'Debug Plant',
-      'Test Plant',
-      'Happy Plant',
-      'Monstera Delicioasa',
-      'Snake Plant',
-      'Bonnie Plant',
-      'Foli Plant',
+    List<String> cardTitles = Hive.box('plants').keys.cast<String>().toList();
+
+    // List<String> cardImages = [
+    //   'https://i.imgur.com/U4Zkhpc.png',
+    //   'https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200',
+    //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQHRfR0_6Dap1-Mv-yDe7Aj5otROVqVY5kvjyD1b_xHw&s',
+    //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwWI0Q8nwjFc2tF_1L4USB8xOydfojOSFeZRWcAPhubg&s',
+    //   'https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1709703400/vendor/8469/catalog/product/2/0/20200304122155_file_5e5ef4a3ccb60_5e5ef7b7cd5fa_64306f77e15a0.jpg',
+    //   'https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200',
+    //   'https://foli.ca/cdn/shop/products/CPCo-0366_b4e112b7-aab7-44bd-b65f-ad033ba9bc88.jpg?v=1709518733&width=4096',
+    // ];
+    List<Uint8List> cardImages = [
+      for (String title in cardTitles)
+        Hive.box('plants').get(title)['image'] as Uint8List
     ];
 
-    List<String> cardImages = [
-      'https://i.imgur.com/U4Zkhpc.png',
-      'https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQHRfR0_6Dap1-Mv-yDe7Aj5otROVqVY5kvjyD1b_xHw&s',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwWI0Q8nwjFc2tF_1L4USB8xOydfojOSFeZRWcAPhubg&s',
-      'https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1709703400/vendor/8469/catalog/product/2/0/20200304122155_file_5e5ef4a3ccb60_5e5ef7b7cd5fa_64306f77e15a0.jpg',
-      'https://bonnieplants.com/cdn/shop/files/plugs_on_ledge.jpg?v=1681134679&width=1200',
-      'https://foli.ca/cdn/shop/products/CPCo-0366_b4e112b7-aab7-44bd-b65f-ad033ba9bc88.jpg?v=1709518733&width=4096',
-    ];
     // END DEBUG DATA
 
     return Scaffold(

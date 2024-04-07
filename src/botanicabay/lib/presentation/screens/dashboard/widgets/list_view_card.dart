@@ -1,10 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ListViewCard extends ConsumerWidget {
-  final String backgroundImage;
+  final Uint8List backgroundImage;
   final String title;
   final bool synced;
 
@@ -28,7 +30,7 @@ class ListViewCard extends ConsumerWidget {
           height: 105,
           child: Stack(
             children: [
-              Image.network(
+              Image.memory(
                 backgroundImage,
                 fit: BoxFit.cover,
                 width: double.infinity,
