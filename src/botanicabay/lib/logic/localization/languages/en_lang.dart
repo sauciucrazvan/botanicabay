@@ -23,18 +23,23 @@ const en = {
       "This will help you identify it later. You can use anything you want - the limit is your imagination!",
   "add_plant_display_name": "Display Name",
   "add_plant_choose_name_warning": "You need to name your plant!",
-  "add_plant_custom_variable": "Add a custom variable (optional)",
+  "add_plant_custom_variable": "Add a custom variable",
   "add_plant_custom_variable_description":
-      "You can add custom variables to keep notes about every single plant. You'll be able to add more once you've finished.",
+      "You can add custom variables to keep notes about every single plant.",
   "variable": "Variable",
   "variables": "Variable(s)",
   "value": "Value",
   "finish": "Finish",
   "alert": "Alert",
+  "add": "Add",
+  "close": "Close",
   "or": "or",
   "next_step": "Next step",
   "view_plants_delete_confirmation":
       "Are you sure you want to delete '%plant_name%'?",
   "view_plants_delete_notification": "Succesfully removed '%plant_name%'.",
   "view_plants_update_notification": "Succesfully updated '%plant_name%'.",
+  "add_variable_invalid_input":
+      "The input you've provided for the 2 text boxes is invalid.",
+  "add_variable_success": "Succesfully added the variable.",
 };

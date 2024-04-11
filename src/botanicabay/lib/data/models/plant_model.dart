@@ -17,4 +17,7 @@ class Plant extends HiveObject {
     Hive.box('plants').delete(title);
     Hive.box('plants').put(newTitle, plantDetails);
   }
+
+  void addVariable(String variable, String value) =>
+      variables!.addAll({variable: value});
 }

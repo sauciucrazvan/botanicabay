@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:botanicabay/presentation/screens/dashboard/widgets/add_variable.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -182,14 +183,18 @@ class ViewCard extends HookConsumerWidget {
                               padding: const EdgeInsets.all(8.0),
                               backgroundColor: theme.secondaryColor,
                             ),
-                            onPressed: () {},
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => AddPlantVariable(
+                                  title: title, variables: variables),
+                            ),
                             icon: Icon(
                               Icons.edit_attributes_rounded,
                               color: theme.primaryColor,
                               size: 20,
                             ),
                           ),
-                          const SizedBox(width: 4),
+                          const Spacer(),
                           IconButton(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(8.0),
@@ -201,6 +206,19 @@ class ViewCard extends HookConsumerWidget {
                                   ? Icons.sync_rounded
                                   : Icons.sync_disabled_rounded,
                               color: synced ? theme.primaryColor : Colors.red,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          IconButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(8.0),
+                              backgroundColor: theme.secondaryColor,
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.red,
                               size: 20,
                             ),
                           ),
