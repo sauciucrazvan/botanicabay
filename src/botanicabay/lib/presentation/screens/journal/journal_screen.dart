@@ -21,6 +21,8 @@ class JournalScreen extends HookConsumerWidget {
     Themes theme = ref.watch(themesProvider);
     bool isSaving = ref.watch(inSavingStateProvider);
 
+    //final cancelTimer;
+
     SettingsHandler settingsHandler = SettingsHandler();
     LocalizationHandler localizationHandler = LocalizationHandler();
 
@@ -48,7 +50,10 @@ class JournalScreen extends HookConsumerWidget {
       backgroundColor: theme.backgroundColor,
       body: PopScope(
         onPopInvoked: (didPop) {
-          if (didPop) ref.read(inSavingStateProvider.notifier).state = false;
+          if (didPop) {
+            ref.read(inSavingStateProvider.notifier).state = false;
+            //cancelTimer.cancel();
+          }
         },
         child: SafeArea(
           child: SingleChildScrollView(
@@ -84,10 +89,13 @@ class JournalScreen extends HookConsumerWidget {
 
                                 ref.read(inSavingStateProvider.notifier).state =
                                     true;
+
                                 Timer(const Duration(seconds: 5), () {
-                                  ref
-                                      .read(inSavingStateProvider.notifier)
-                                      .state = false;
+                                  if (context.mounted) {
+                                    ref
+                                        .read(inSavingStateProvider.notifier)
+                                        .state = false;
+                                  }
                                 });
                               },
                         style: ElevatedButton.styleFrom(
@@ -99,7 +107,7 @@ class JournalScreen extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(16)),
                         ),
                         child: Icon(
-                          isSaving ? Icons.check : Icons.save_alt_rounded,
+                          isSaving ? Icons.check : Icons.save,
                           color: theme.textColor,
                           size: 24,
                         ),

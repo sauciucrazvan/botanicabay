@@ -106,6 +106,7 @@ class ViewCard extends ConsumerWidget {
                               size: 20,
                             ),
                           ),
+                          const SizedBox(width: 4),
                           IconButton(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(8.0),
@@ -118,6 +119,7 @@ class ViewCard extends ConsumerWidget {
                               size: 20,
                             ),
                           ),
+                          const SizedBox(width: 4),
                           IconButton(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(8.0),
@@ -130,6 +132,7 @@ class ViewCard extends ConsumerWidget {
                               size: 20,
                             ),
                           ),
+                          const SizedBox(width: 4),
                           IconButton(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(8.0),
@@ -155,49 +158,52 @@ class ViewCard extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: theme.secondaryColor,
-                            borderRadius: BorderRadius.circular(8)),
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            for (var variable in variables!.entries)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: (MediaQuery.of(context).size.width -
-                                            100) /
-                                        2,
-                                    child: Text(
-                                      variable.key + ":",
-                                      style: TextStyle(
-                                        color: theme.textColor,
-                                        fontSize: 12,
+                      if (variables != null && variables!.isNotEmpty)
+                        Container(
+                          decoration: BoxDecoration(
+                              color: theme.secondaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              for (var variable in variables!.entries)
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  100) /
+                                              2,
+                                      child: Text(
+                                        variable.key + ":",
+                                        style: TextStyle(
+                                          color: theme.textColor,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  SizedBox(
-                                    width: (MediaQuery.of(context).size.width -
-                                            100) /
-                                        2,
-                                    child: Text(
-                                      variable.value,
-                                      style: TextStyle(
-                                        color: theme.textColor,
-                                        fontSize: 12,
+                                    const SizedBox(width: 4),
+                                    SizedBox(
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  100) /
+                                              2,
+                                      child: Text(
+                                        variable.value,
+                                        style: TextStyle(
+                                          color: theme.textColor,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                          ],
-                        ),
-                      )
+                                  ],
+                                ),
+                            ],
+                          ),
+                        )
                     ],
                   ),
                 ),
