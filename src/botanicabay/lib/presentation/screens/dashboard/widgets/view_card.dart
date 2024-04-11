@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:botanicabay/presentation/screens/dashboard/widgets/add_variable.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,10 +8,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/data/providers/plants_provider.dart';
-import 'package:botanicabay/logic/localization/localization_handler.dart';
-import 'package:botanicabay/presentation/screens/dashboard/providers/editing_state_provider.dart';
 import 'package:botanicabay/presentation/widgets/confirm_dialog.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/add_variable.dart';
+import 'package:botanicabay/presentation/screens/dashboard/providers/editing_state_provider.dart';
 
 class ViewCard extends HookConsumerWidget {
   final Uint8List backgroundImage;
@@ -93,7 +93,7 @@ class ViewCard extends HookConsumerWidget {
                               title,
                               style: TextStyle(
                                 color: theme.textColor,
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -101,44 +101,6 @@ class ViewCard extends HookConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          IconButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(8.0),
-                              backgroundColor: theme.secondaryColor,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => ConfirmDialog(
-                                  text: localizationHandler
-                                      .getMessage(ref,
-                                          "view_plants_delete_confirmation")
-                                      .replaceAll("%plant_name%", title),
-                                  confirm: () {
-                                    Hive.box('plants').delete(title);
-                                    ref.invalidate(plantsProvider);
-
-                                    showElevatedNotification(
-                                      context,
-                                      localizationHandler
-                                          .getMessage(ref,
-                                              "view_plants_delete_notification")
-                                          .replaceAll("%plant_name%", title),
-                                      theme.primaryColor,
-                                    );
-                                    Navigator.popUntil(
-                                        context, (route) => route.isFirst);
-                                  },
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                              size: 20,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
                           IconButton(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(8.0),
@@ -189,8 +151,46 @@ class ViewCard extends HookConsumerWidget {
                                   title: title, variables: variables),
                             ),
                             icon: Icon(
-                              Icons.edit_attributes_rounded,
+                              Icons.lock_rounded,
                               color: theme.primaryColor,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          IconButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(8.0),
+                              backgroundColor: theme.secondaryColor,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => ConfirmDialog(
+                                  text: localizationHandler
+                                      .getMessage(ref,
+                                          "view_plants_delete_confirmation")
+                                      .replaceAll("%plant_name%", title),
+                                  confirm: () {
+                                    Hive.box('plants').delete(title);
+                                    ref.invalidate(plantsProvider);
+
+                                    showElevatedNotification(
+                                      context,
+                                      localizationHandler
+                                          .getMessage(ref,
+                                              "view_plants_delete_notification")
+                                          .replaceAll("%plant_name%", title),
+                                      theme.primaryColor,
+                                    );
+                                    Navigator.popUntil(
+                                        context, (route) => route.isFirst);
+                                  },
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
                               size: 20,
                             ),
                           ),
@@ -225,19 +225,32 @@ class ViewCard extends HookConsumerWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
                         localizationHandler.getMessage(ref, "variables"),
                         style: TextStyle(
                           color: theme.textColor,
-                          fontSize: 14,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 4),
                       if (variables != null && variables!.isNotEmpty)
                         Container(
                           decoration: BoxDecoration(
-                              color: theme.secondaryColor,
-                              borderRadius: BorderRadius.circular(8)),
+                            color: theme.secondaryColor,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                          ),
                           padding: const EdgeInsets.all(8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,6 +260,34 @@ class ViewCard extends HookConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    if (editMode)
+                                      SizedBox(
+                                        height: 32,
+                                        width: 32,
+                                        child: IconButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                theme.secondaryColor,
+                                          ),
+                                          onPressed: () {
+                                            Hive.box('plants')
+                                                .get(title)
+                                                .removeVariable(variable.key);
+
+                                            ref
+                                              ..invalidate(editingStateProvider)
+                                              ..read(editingStateProvider
+                                                          .notifier)
+                                                      .state =
+                                                  true; // updating entries
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete_forever_rounded,
+                                            color: Colors.red,
+                                            size: 14,
+                                          ),
+                                        ),
+                                      ),
                                     SizedBox(
                                       width:
                                           (MediaQuery.of(context).size.width -
@@ -256,7 +297,7 @@ class ViewCard extends HookConsumerWidget {
                                         variable.key + ":",
                                         style: TextStyle(
                                           color: theme.textColor,
-                                          fontSize: 12,
+                                          fontSize: 14,
                                         ),
                                       ),
                                     ),
@@ -264,13 +305,13 @@ class ViewCard extends HookConsumerWidget {
                                     SizedBox(
                                       width:
                                           (MediaQuery.of(context).size.width -
-                                                  100) /
+                                                  (editMode ? 150 : 100)) /
                                               2,
                                       child: Text(
                                         variable.value,
                                         style: TextStyle(
                                           color: theme.textColor,
-                                          fontSize: 12,
+                                          fontSize: 14,
                                         ),
                                       ),
                                     ),
@@ -278,7 +319,7 @@ class ViewCard extends HookConsumerWidget {
                                 ),
                             ],
                           ),
-                        )
+                        ),
                     ],
                   ),
                 ),

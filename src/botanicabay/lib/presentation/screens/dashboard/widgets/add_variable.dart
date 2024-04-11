@@ -1,15 +1,16 @@
+import 'package:hive/hive.dart';
+import 'package:lottie/lottie.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lottie/lottie.dart';
+import 'package:botanicabay/presentation/screens/dashboard/providers/editing_state_provider.dart';
 
 class AddPlantVariable extends HookConsumerWidget {
   final String title;
@@ -155,6 +156,11 @@ class AddPlantVariable extends HookConsumerWidget {
 
                             plant.addVariable(
                                 variableController.text, valueController.text);
+
+                            ref
+                              ..read(editingStateProvider.notifier).state = true
+                              ..invalidate(editingStateProvider);
+
                             showElevatedNotification(
                                 context,
                                 localizationHandler.getMessage(

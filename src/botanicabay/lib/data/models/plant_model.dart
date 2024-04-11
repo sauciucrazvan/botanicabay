@@ -20,4 +20,5 @@ class Plant extends HiveObject {
 
   void addVariable(String variable, String value) =>
       variables!.addAll({variable: value});
+  void removeVariable(String key) => variables!.remove(key);
 }
