@@ -21,8 +21,6 @@ class JournalScreen extends HookConsumerWidget {
     Themes theme = ref.watch(themesProvider);
     bool isSaving = ref.watch(inSavingStateProvider);
 
-    //final cancelTimer;
-
     SettingsHandler settingsHandler = SettingsHandler();
     LocalizationHandler localizationHandler = LocalizationHandler();
 

@@ -36,4 +36,5 @@ const en = {
   "view_plants_delete_confirmation":
       "Are you sure you want to delete '%plant_name%'?",
   "view_plants_delete_notification": "Succesfully removed '%plant_name%'.",
+  "view_plants_update_notification": "Succesfully updated '%plant_name%'.",
 };

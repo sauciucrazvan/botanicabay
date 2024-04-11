@@ -11,4 +11,10 @@ class Plant extends HiveObject {
   Map<String, String>? variables;
 
   Plant(this.image, this.variables);
+
+  void update(String title, String newTitle) {
+    Plant plantDetails = Hive.box('plants').get(title);
+    Hive.box('plants').delete(title);
+    Hive.box('plants').put(newTitle, plantDetails);
+  }
 }
