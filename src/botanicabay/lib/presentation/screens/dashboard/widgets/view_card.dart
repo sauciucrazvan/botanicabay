@@ -151,7 +151,7 @@ class ViewCard extends HookConsumerWidget {
                                   title: title, variables: variables),
                             ),
                             icon: Icon(
-                              Icons.lock_rounded,
+                              Icons.playlist_add_rounded,
                               color: theme.primaryColor,
                               size: 20,
                             ),

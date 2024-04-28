@@ -4,36 +4,47 @@
 
 const es = {
   "dashboard_title": "Resumen de Plantas",
-  "settings": "Ajustes",
+  "settings": "Configuración",
   "settings_choose_theme": "Elige tu tema",
   "settings_choose_language": "Elige tu idioma",
   "settings_current_version":
-      "Actualmente utilizando %version%\n(funcionando en %platform%)",
+      "Actualmente usando %version%\n(funcionando en %platform%)",
   "journal": "Diario",
   "journal_title": "Tu diario personal",
   "journal_take_notes": "Tomar notas...",
   "journal_disclaimer":
-      "Asegúrate de guardar los cambios. Volver al tablero no guardará las modificaciones actuales.",
-  "journal_update_successful": "Diario actualizado correctamente.",
+      "Asegúrate de guardar cualquier cambio. Volver al tablero no guardará las modificaciones actuales.",
+  "journal_update_successful": "Se actualizó el diario correctamente.",
   "add_plant": "Agregar una nueva planta",
-  "add_plant_choose_picture": "¡Comencemos, elige una imagen!",
+  "add_plant_choose_picture": "¡Comencemos eligiendo una imagen!",
   "add_plant_picture_description":
-      "Elige si ya tienes una imagen de la planta o quieres tomar una ahora mismo.",
+      "Elige si ya tienes una imagen de la planta o si quieres tomar una ahora mismo.",
   "add_plant_gallery": "Galería",
   "add_plant_camera": "Cámara",
-  "add_plant_invalid_image": "La imagen que proporcionaste no es válida.",
-  "add_plant_choose_name": "Vamos a darle un nombre a tu planta...",
+  "add_plant_invalid_image": "La imagen que proporcionaste es inválida.",
+  "add_plant_choose_name": "Ponle nombre a tu planta...",
   "add_plant_choose_name_description":
       "Esto te ayudará a identificarla más tarde. ¡Puedes usar lo que quieras, la imaginación es el límite!",
   "add_plant_display_name": "Nombre a mostrar",
-  "add_plant_choose_name_warning": "¡Necesitas ponerle un nombre a tu planta!",
-  "add_plant_custom_variable": "Agregar una variable personalizada (opcional)",
+  "add_plant_choose_name_warning": "¡Debes nombrar tu planta!",
+  "add_plant_custom_variable": "Agregar una variable personalizada",
   "add_plant_custom_variable_description":
-      "Puedes agregar variables personalizadas para tomar notas sobre cada planta individual. Podrás agregar más una vez que hayas terminado.",
+      "Puedes agregar variables personalizadas para tomar notas sobre cada planta individual.",
   "variable": "Variable",
+  "variables": "Variable(s)",
   "value": "Valor",
   "finish": "Finalizar",
-  "skip": "Saltar",
-  "next_step": "Siguiente paso",
+  "alert": "Alerta",
+  "add": "Agregar",
+  "close": "Cerrar",
   "or": "o",
+  "next_step": "Siguiente paso",
+  "view_plants_delete_confirmation":
+      "¿Estás seguro de que quieres eliminar '%plant_name%'?",
+  "view_plants_delete_notification": "'%plant_name%' eliminado correctamente.",
+  "view_plants_update_notification":
+      "'%plant_name%' actualizado correctamente.",
+  "add_variable_invalid_input":
+      "La entrada que proporcionaste para los 2 cuadros de texto es inválida.",
+  "add_variable_success": "Variable agregada correctamente."
 };
