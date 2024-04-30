@@ -29,9 +29,10 @@ const de = {
   "add_plant_choose_name_warning": "Du musst deine Pflanze benennen!",
   "add_plant_custom_variable": "Benutzerdefinierte Variable hinzufügen",
   "add_plant_custom_variable_description":
-      "Du kannst benutzerdefinierte Variablen hinzufügen, um Notizen zu jeder einzelnen Pflanze zu speichern.",
+      "Du kannst benutzerdefinierte Variablen hinzufügen, um Notizen zu jeder einzelnen Pflanze zu speichern. Das Aktualisieren von Variablen ist so einfach wie das Beibehalten ihres ursprünglichen Namens.",
   "variable": "Variable",
   "variables": "Variable(n)",
+  "tips": "AI Tipps",
   "value": "Wert",
   "finish": "Fertig",
   "alert": "Alarm",
@@ -39,11 +40,15 @@ const de = {
   "close": "Schließen",
   "or": "oder",
   "next_step": "Nächster Schritt",
+  "regenerate": "Neu generieren",
+  "description": "beschreibung",
   "view_plants_delete_confirmation":
       "Bist du sicher, dass du '%plant_name%' löschen möchtest?",
   "view_plants_delete_notification": "'%plant_name%' erfolgreich entfernt.",
   "view_plants_update_notification": "'%plant_name%' erfolgreich aktualisiert.",
   "add_variable_invalid_input":
       "Die Eingabe für die 2 Textfelder ist ungültig.",
-  "add_variable_success": "Variable erfolgreich hinzugefügt."
+  "add_variable_success": "Variable erfolgreich hinzugefügt.",
+  "ai_prompt":
+      "Hey. Ich habe eine %plant_name% (Pflanze). Kannst du einige Tipps geben, wie man sich um sie kümmert? Beschränke dich auf 256 Zeichen."
 };

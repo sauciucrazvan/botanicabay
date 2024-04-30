@@ -339,7 +339,7 @@ class ViewCard extends HookConsumerWidget {
                                           icon: const Icon(
                                             Icons.delete_forever_rounded,
                                             color: Colors.red,
-                                            size: 14,
+                                            size: 16,
                                           ),
                                         ),
                                       ),

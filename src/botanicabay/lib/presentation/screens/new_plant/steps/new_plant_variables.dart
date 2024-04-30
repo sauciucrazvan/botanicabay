@@ -146,7 +146,10 @@ class AddNewPlantVariables extends HookConsumerWidget {
                     onPressed: () {
                       Map<String, String> variables =
                           variableController.text.isNotEmpty
-                              ? {variableController.text: valueController.text}
+                              ? {
+                                  variableController.text.toLowerCase():
+                                      valueController.text
+                                }
                               : {};
                       Plant plant = Plant(imageBytes, variables);
 

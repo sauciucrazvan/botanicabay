@@ -14,7 +14,7 @@ const ro = {
   "add_plant": "Adaugă o nouă plantă",
   "add_plant_choose_picture": "Să începem - alege o imagine!",
   "add_plant_picture_description":
-      "Alege dacă ai deja o imagine a plantei sau vrei să faci una chiar acum.",
+      "Alege dacă ai deja o imagine a plantei sau dacă vrei să faci una chiar acum.",
   "add_plant_gallery": "Galerie",
   "add_plant_camera": "Cameră",
   "add_plant_invalid_image": "Imaginea pe care ai furnizat-o nu este validă.",
@@ -25,9 +25,10 @@ const ro = {
   "add_plant_choose_name_warning": "Trebuie să îi dai plantei tale un nume!",
   "add_plant_custom_variable": "Adaugă o variabilă personalizată",
   "add_plant_custom_variable_description":
-      "Poți adăuga variabile personalizate pentru a lua notițe despre fiecare plantă în parte.",
+      "Poți adăuga variabile personalizate pentru a lua notițe despre fiecare plantă în parte. Actualizarea variabilelor este la fel de simplă ca menținerea numelui lor original.",
   "variable": "Variabilă",
   "variables": "Variabile",
+  "tips": "Sfaturi IA",
   "value": "Valoare",
   "finish": "Finalizare",
   "alert": "Alertă",
@@ -35,6 +36,8 @@ const ro = {
   "close": "Închide",
   "or": "sau",
   "next_step": "Pasul următor",
+  "regenerate": "Regenerare",
+  "description": "descriere",
   "view_plants_delete_confirmation":
       "Ești sigur că vrei să ștergi '%plant_name%'?",
   "view_plants_delete_notification":
@@ -43,5 +46,7 @@ const ro = {
       "'%plant_name%' a fost actualizată cu succes.",
   "add_variable_invalid_input":
       "Intrarea pe care ai furnizat-o pentru cele 2 casete de text nu este validă.",
-  "add_variable_success": "Variabila a fost adăugată cu succes."
+  "add_variable_success": "Variabila a fost adăugată cu succes.",
+  "ai_prompt":
+      "Salut. Am o %plant_name% (plantă). Poți sugera câteva sfaturi despre cum să ai grijă de ea? Limitează-te la 256 de caractere."
 };

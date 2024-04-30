@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/logic/limit_string.dart';
+import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,6 +24,7 @@ class ListViewCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
+    LocalizationHandler localizationHandler = LocalizationHandler();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -78,7 +80,9 @@ class ListViewCard extends ConsumerWidget {
                           ),
                           const SizedBox(width: 4),
                           if (variables != null &&
-                              variables!["description"] != null)
+                              variables![localizationHandler.getMessage(
+                                      ref, "description")] !=
+                                  null)
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +94,10 @@ class ListViewCard extends ConsumerWidget {
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  limitString(variables!["description"], 32),
+                                  limitString(
+                                      variables![localizationHandler.getMessage(
+                                          ref, "description")],
+                                      32),
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,

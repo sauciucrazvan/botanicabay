@@ -25,7 +25,7 @@ const en = {
   "add_plant_choose_name_warning": "You need to name your plant!",
   "add_plant_custom_variable": "Add a custom variable",
   "add_plant_custom_variable_description":
-      "You can add custom variables to keep notes about every single plant.",
+      "You can add custom variables to keep notes about every single plant. Updating variables is as simple as keeping their original name.",
   "variable": "Variable",
   "variables": "Variable(s)",
   "tips": "AI Tips",
@@ -36,6 +36,8 @@ const en = {
   "close": "Close",
   "or": "or",
   "next_step": "Next step",
+  "regenerate": "Regenerate",
+  "description": "description",
   "view_plants_delete_confirmation":
       "Are you sure you want to delete '%plant_name%'?",
   "view_plants_delete_notification": "Succesfully removed '%plant_name%'.",
@@ -43,4 +45,6 @@ const en = {
   "add_variable_invalid_input":
       "The input you've provided for the 2 text boxes is invalid.",
   "add_variable_success": "Succesfully added the variable.",
+  "ai_prompt":
+      "Hey. I have a %plant_name% (plant). Can you suggest some tips on how to take care of it? Limit yourself to 256 characters.",
 };

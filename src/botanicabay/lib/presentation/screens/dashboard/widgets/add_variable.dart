@@ -156,7 +156,8 @@ class AddPlantVariable extends HookConsumerWidget {
                             }
 
                             plant.addVariable(
-                                variableController.text, valueController.text);
+                                variableController.text.toLowerCase(),
+                                valueController.text);
 
                             Hive.box('plants').put(title, plant);
 
@@ -164,7 +165,9 @@ class AddPlantVariable extends HookConsumerWidget {
                               ..read(viewCardPanelProvider.notifier).state = -1
                               ..invalidate(viewCardPanelProvider);
 
-                            if (variableController.text == "description") {
+                            if (variableController.text.toLowerCase() ==
+                                localizationHandler.getMessage(
+                                    ref, "description")) {
                               ref.invalidate(plantsProvider);
                             }
 

@@ -24,14 +24,15 @@ const it = {
   "add_plant_invalid_image": "L'immagine che hai fornito non è valida.",
   "add_plant_choose_name": "Dai un nome alla tua pianta...",
   "add_plant_choose_name_description":
-      "Questo ti aiuterà a identificarla in seguito. Puoi usare quello che vuoi, l'unico limite è la tua immaginazione!",
+      "Questo ti aiuterà a identificarla in seguito. Puoi usare quello che vuoi, la sola limitazione è la tua immaginazione!",
   "add_plant_display_name": "Nome visualizzato",
   "add_plant_choose_name_warning": "Devi dare un nome alla tua pianta!",
   "add_plant_custom_variable": "Aggiungi una variabile personalizzata",
   "add_plant_custom_variable_description":
-      "Puoi aggiungere variabili personalizzate per prendere appunti su ogni singola pianta.",
+      "Puoi aggiungere variabili personalizzate per prendere appunti su ogni singola pianta. L'aggiornamento delle variabili è semplice come mantenere il loro nome originale.",
   "variable": "Variabile",
   "variables": "Variabile(i)",
+  "tips": "Consigli IA",
   "value": "Valore",
   "finish": "Fine",
   "alert": "Avviso",
@@ -39,11 +40,15 @@ const it = {
   "close": "Chiudi",
   "or": "o",
   "next_step": "Passaggio successivo",
+  "regenerate": "Rigenerare",
+  "description": "descrizione",
   "view_plants_delete_confirmation":
       "Sei sicuro di voler eliminare '%plant_name%'?",
   "view_plants_delete_notification": "'%plant_name%' rimosso con successo.",
   "view_plants_update_notification": "'%plant_name%' aggiornato con successo.",
   "add_variable_invalid_input":
       "L'input che hai fornito per le 2 caselle di testo non è valido.",
-  "add_variable_success": "Variabile aggiunta con successo."
+  "add_variable_success": "Variabile aggiunta con successo.",
+  "ai_prompt":
+      "Ciao. Ho una %plant_name% (pianta). Puoi suggerire alcuni consigli su come prendersene cura? Limite di 256 caratteri."
 };
