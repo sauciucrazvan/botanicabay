@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,14 +19,12 @@ final viewCardPanelProvider = StateProvider<int>((ref) => 0);
 class ViewCard extends HookConsumerWidget {
   final Uint8List backgroundImage;
   final String title;
-  final bool synced;
   final Map? variables;
 
   const ViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
-    required this.synced,
     required this.variables,
   });
 
@@ -201,21 +197,21 @@ class ViewCard extends HookConsumerWidget {
                             ),
                           ),
                           const Spacer(),
-                          IconButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(8.0),
-                              backgroundColor: theme.secondaryColor,
-                            ),
-                            onPressed: () {},
-                            icon: Icon(
-                              synced
-                                  ? Icons.sync_rounded
-                                  : Icons.sync_disabled_rounded,
-                              color: synced ? theme.primaryColor : Colors.red,
-                              size: 20,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
+                          // IconButton(
+                          //   style: ElevatedButton.styleFrom(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     backgroundColor: theme.secondaryColor,
+                          //   ),
+                          //   onPressed: () {},
+                          //   icon: Icon(
+                          //     synced
+                          //         ? Icons.sync_rounded
+                          //         : Icons.sync_disabled_rounded,
+                          //     color: synced ? theme.primaryColor : Colors.red,
+                          //     size: 20,
+                          //   ),
+                          // ),
+                          // const SizedBox(width: 4),
                           IconButton(
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(8.0),

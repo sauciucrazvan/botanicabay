@@ -157,6 +157,8 @@ class AddPlantVariable extends HookConsumerWidget {
                             plant.addVariable(
                                 variableController.text, valueController.text);
 
+                            Hive.box('plants').put(title, plant);
+
                             ref
                               ..read(editingStateProvider.notifier).state = true
                               ..invalidate(editingStateProvider);
