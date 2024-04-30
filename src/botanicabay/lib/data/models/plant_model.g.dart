@@ -19,17 +19,20 @@ class PlantAdapter extends TypeAdapter<Plant> {
     return Plant(
       fields[0] as Uint8List,
       (fields[1] as Map?)?.cast<String, String>(),
+      fields[2] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Plant obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
-      ..write(obj.variables);
+      ..write(obj.variables)
+      ..writeByte(2)
+      ..write(obj.aiTips);
   }
 
   @override

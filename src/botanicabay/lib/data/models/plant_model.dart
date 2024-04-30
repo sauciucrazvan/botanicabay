@@ -9,8 +9,10 @@ class Plant extends HiveObject {
   Uint8List image;
   @HiveField(1)
   Map<String, String>? variables;
+  @HiveField(2)
+  String? aiTips;
 
-  Plant(this.image, this.variables);
+  Plant(this.image, this.variables, this.aiTips);
 
   void update(String title, String newTitle) {
     Plant plantDetails = Hive.box('plants').get(title);

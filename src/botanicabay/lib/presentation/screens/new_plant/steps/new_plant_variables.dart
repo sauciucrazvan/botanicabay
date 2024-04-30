@@ -151,7 +151,7 @@ class AddNewPlantVariables extends HookConsumerWidget {
                                       valueController.text
                                 }
                               : {};
-                      Plant plant = Plant(imageBytes, variables);
+                      Plant plant = Plant(imageBytes, variables, null);
 
                       if (!Hive.box('plants').containsKey(plantName)) {
                         Hive.box('plants').put(plantName, plant);

@@ -19,12 +19,14 @@ final viewCardPanelProvider = StateProvider<int>((ref) => 0);
 class ViewCard extends HookConsumerWidget {
   final Uint8List backgroundImage;
   final String title;
+  final String? aiTips;
   final Map? variables;
 
   const ViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
+    required this.aiTips,
     required this.variables,
   });
 
@@ -375,6 +377,7 @@ class ViewCard extends HookConsumerWidget {
                             ],
                           ),
                         ),
+                      if (panelState == 1) const Placeholder(),
                     ],
                   ),
                 ),

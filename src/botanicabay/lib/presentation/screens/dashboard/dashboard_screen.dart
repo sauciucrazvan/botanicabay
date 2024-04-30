@@ -194,6 +194,7 @@ class DashboardScreen extends ConsumerWidget {
                       GridViewCard(
                         backgroundImage: entry.value.image,
                         title: entry.key,
+                        aiTips: entry.value.aiTips,
                         variables: entry.value.variables,
                       ),
                   ],
@@ -205,6 +206,7 @@ class DashboardScreen extends ConsumerWidget {
                   ListViewCard(
                     backgroundImage: entry.value.image,
                     title: entry.key,
+                    aiTips: entry.value.aiTips,
                     variables: entry.value.variables,
                   ),
               ],

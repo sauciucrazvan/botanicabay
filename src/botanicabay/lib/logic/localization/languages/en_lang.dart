@@ -20,7 +20,7 @@ const en = {
   "add_plant_invalid_image": "The image you provided is invalid.",
   "add_plant_choose_name": "Let's give your plant a name...",
   "add_plant_choose_name_description":
-      "This will help you identify it later. You can use anything you want - the limit is your imagination!",
+      "You can use anything you want - the limit is your imagination, however be more specific in case you want to use the AI Tips feature.",
   "add_plant_display_name": "Display Name",
   "add_plant_choose_name_warning": "You need to name your plant!",
   "add_plant_custom_variable": "Add a custom variable",

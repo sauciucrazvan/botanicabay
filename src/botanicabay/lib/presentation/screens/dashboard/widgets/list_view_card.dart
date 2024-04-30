@@ -12,12 +12,14 @@ import 'package:botanicabay/presentation/screens/dashboard/widgets/view_card.dar
 class ListViewCard extends ConsumerWidget {
   final Uint8List backgroundImage;
   final String title;
+  final String? aiTips;
   final Map? variables;
 
   const ListViewCard({
     super.key,
     required this.backgroundImage,
     required this.title,
+    required this.aiTips,
     required this.variables,
   });
 
@@ -134,6 +136,7 @@ class ListViewCard extends ConsumerWidget {
                       builder: (context) => ViewCard(
                         backgroundImage: backgroundImage,
                         title: title,
+                        aiTips: aiTips,
                         variables: variables,
                       ),
                     ),
