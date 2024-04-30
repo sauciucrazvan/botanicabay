@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/logic/ai_handler/ai_handler.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
@@ -403,8 +404,9 @@ class ViewCard extends HookConsumerWidget {
                                   .read(regeneratingStateProvider.notifier)
                                   .state = 0;
 
-                              Hive.box('plants').get(title).aiTips =
-                                  ref.watch(aiTipsProvider);
+                              Plant plant = Hive.box('plants').get(title);
+                              plant.aiTips = ref.watch(aiTipsProvider);
+                              Hive.box('plants').put(title, plant);
                             },
                             child: Container(
                               decoration: BoxDecoration(
