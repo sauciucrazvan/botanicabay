@@ -1,3 +1,5 @@
+import 'package:botanicabay/data/providers/plants_provider.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/view_card.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,6 @@ import 'package:botanicabay/data/models/themes_model.dart';
 import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
-import 'package:botanicabay/presentation/screens/dashboard/providers/editing_state_provider.dart';
 
 class AddPlantVariable extends HookConsumerWidget {
   final String title;
@@ -160,8 +161,12 @@ class AddPlantVariable extends HookConsumerWidget {
                             Hive.box('plants').put(title, plant);
 
                             ref
-                              ..read(editingStateProvider.notifier).state = true
-                              ..invalidate(editingStateProvider);
+                              ..read(viewCardPanelProvider.notifier).state = -1
+                              ..invalidate(viewCardPanelProvider);
+
+                            if (variableController.text == "description") {
+                              ref.invalidate(plantsProvider);
+                            }
 
                             showElevatedNotification(
                                 context,
