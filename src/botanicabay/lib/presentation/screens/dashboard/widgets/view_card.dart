@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,6 +15,8 @@ import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:botanicabay/presentation/screens/dashboard/widgets/add_variable.dart';
 import 'package:botanicabay/presentation/screens/dashboard/providers/editing_state_provider.dart';
+
+final viewCardPanelProvider = StateProvider<int>((ref) => 0);
 
 class ViewCard extends HookConsumerWidget {
   final Uint8List backgroundImage;
@@ -36,6 +40,8 @@ class ViewCard extends HookConsumerWidget {
     LocalizationHandler localizationHandler = LocalizationHandler();
     TextEditingController titleController =
         useTextEditingController(text: title);
+
+    var panelState = ref.watch(viewCardPanelProvider);
 
     return Center(
       child: ClipRRect(
@@ -233,16 +239,66 @@ class ViewCard extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        localizationHandler.getMessage(ref, "variables"),
-                        style: TextStyle(
-                          color: theme.textColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () => ref
+                                .read(viewCardPanelProvider.notifier)
+                                .state = 0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: panelState == 0
+                                    ? theme.primaryColor
+                                    : theme.secondaryColor,
+                                borderRadius: const BorderRadius.horizontal(
+                                    left: Radius.circular(16)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  localizationHandler.getMessage(
+                                      ref, "variables"),
+                                  style: TextStyle(
+                                    color: theme.textColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => ref
+                                .read(viewCardPanelProvider.notifier)
+                                .state = 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: panelState == 1
+                                    ? theme.primaryColor
+                                    : theme.secondaryColor,
+                                borderRadius: const BorderRadius.horizontal(
+                                    right: Radius.circular(16)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  localizationHandler.getMessage(ref, "tips"),
+                                  style: TextStyle(
+                                    color: theme.textColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 4),
-                      if (variables != null && variables!.isNotEmpty)
+                      const SizedBox(height: 8),
+                      if (panelState == 0 &&
+                          variables != null &&
+                          variables!.isNotEmpty)
                         Container(
                           decoration: BoxDecoration(
                             color: theme.secondaryColor,

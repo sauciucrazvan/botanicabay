@@ -28,6 +28,7 @@ const en = {
       "You can add custom variables to keep notes about every single plant.",
   "variable": "Variable",
   "variables": "Variable(s)",
+  "tips": "AI Tips",
   "value": "Value",
   "finish": "Finish",
   "alert": "Alert",
