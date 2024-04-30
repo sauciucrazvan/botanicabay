@@ -47,5 +47,5 @@ const en = {
       "The input you've provided for the 2 text boxes is invalid.",
   "add_variable_success": "Succesfully added the variable.",
   "ai_prompt":
-      "Hey. I have a %plant_name% (plant). Can you suggest some tips on how to take care of it? Limit yourself to 256 characters.",
+      "Hey. I have a %plant_name% (plant). Please suggest some tips on how to take care of it. Limit yourself to 256 characters and include only the tips.",
 };

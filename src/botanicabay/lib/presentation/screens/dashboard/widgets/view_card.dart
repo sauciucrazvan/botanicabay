@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:botanicabay/logic/ai_handler/ai_handler.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,6 +16,7 @@ import 'package:botanicabay/presentation/screens/dashboard/widgets/add_variable.
 import 'package:botanicabay/presentation/screens/dashboard/providers/editing_state_provider.dart';
 
 final viewCardPanelProvider = StateProvider<int>((ref) => 0);
+final regeneratingStateProvider = StateProvider<int>((ref) => 0);
 
 class ViewCard extends HookConsumerWidget {
   final Uint8List backgroundImage;
@@ -39,7 +41,11 @@ class ViewCard extends HookConsumerWidget {
     TextEditingController titleController =
         useTextEditingController(text: title);
 
+    final aiTipsProvider =
+        StateProvider<String?>((ref) => Hive.box('plants').get(title).aiTips);
+
     var panelState = ref.watch(viewCardPanelProvider);
+    var tipsText = ref.watch(aiTipsProvider);
 
     return Center(
       child: ClipRRect(
@@ -377,7 +383,72 @@ class ViewCard extends HookConsumerWidget {
                             ],
                           ),
                         ),
-                      if (panelState == 1) const Placeholder(),
+                      if (panelState == 1) ...[
+                        GestureDetector(
+                          onTap: () async {
+                            ref.read(regeneratingStateProvider.notifier).state =
+                                1;
+
+                            ref.read(aiTipsProvider.notifier).state =
+                                await OpenAI().prompt(localizationHandler
+                                    .getMessage(ref, "ai_prompt")
+                                    .replaceAll("%plant_name%", title));
+                            ref.read(regeneratingStateProvider.notifier).state =
+                                0;
+
+                            Hive.box('plants').get(title).aiTips =
+                                ref.watch(aiTipsProvider);
+                          },
+                          child: Text(
+                            localizationHandler.getMessage(ref, "regenerate"),
+                            style: TextStyle(
+                              color: theme.textColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        if (tipsText != null)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.secondaryColor,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                bottomLeft: Radius.circular(8),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 12.0),
+                              child: Column(
+                                children: [
+                                  if (ref.watch(regeneratingStateProvider) ==
+                                      0) ...[
+                                    Text(
+                                      tipsText,
+                                      style: TextStyle(
+                                        color: theme.textColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                  ],
+                                  Container(
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      color: ref.watch(
+                                                  regeneratingStateProvider) ==
+                                              0
+                                          ? theme.primaryColor
+                                          : Colors.amber,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                      ]
                     ],
                   ),
                 ),

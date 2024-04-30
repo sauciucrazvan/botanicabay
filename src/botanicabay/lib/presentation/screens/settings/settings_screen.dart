@@ -242,7 +242,7 @@ class SettingsScreen extends ConsumerWidget {
                       child: TextField(
                         controller: openAIKeyController,
                         maxLines: 1,
-                        maxLength: 16,
+                        maxLength: 128,
                         obscureText: true,
                         style: TextStyle(color: theme.textColor),
                         decoration: InputDecoration(
