@@ -384,70 +384,100 @@ class ViewCard extends HookConsumerWidget {
                           ),
                         ),
                       if (panelState == 1) ...[
-                        GestureDetector(
-                          onTap: () async {
-                            ref.read(regeneratingStateProvider.notifier).state =
-                                1;
+                        Center(
+                          child: GestureDetector(
+                            onTap: () async {
+                              if (ref.watch(regeneratingStateProvider) == 1) {
+                                return;
+                              }
 
-                            ref.read(aiTipsProvider.notifier).state =
-                                await OpenAI().prompt(localizationHandler
-                                    .getMessage(ref, "ai_prompt")
-                                    .replaceAll("%plant_name%", title));
-                            ref.read(regeneratingStateProvider.notifier).state =
-                                0;
+                              ref
+                                  .read(regeneratingStateProvider.notifier)
+                                  .state = 1;
 
-                            Hive.box('plants').get(title).aiTips =
-                                ref.watch(aiTipsProvider);
-                          },
-                          child: Text(
-                            localizationHandler.getMessage(ref, "regenerate"),
-                            style: TextStyle(
-                              color: theme.textColor,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        if (tipsText != null)
-                          Container(
-                            decoration: BoxDecoration(
-                              color: theme.secondaryColor,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                bottomLeft: Radius.circular(8),
+                              ref.read(aiTipsProvider.notifier).state =
+                                  await OpenAI().prompt(localizationHandler
+                                      .getMessage(ref, "ai_prompt")
+                                      .replaceAll("%plant_name%", title));
+                              ref
+                                  .read(regeneratingStateProvider.notifier)
+                                  .state = 0;
+
+                              Hive.box('plants').get(title).aiTips =
+                                  ref.watch(aiTipsProvider);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: theme.secondaryColor,
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 12.0),
-                              child: Column(
-                                children: [
-                                  if (ref.watch(regeneratingStateProvider) ==
-                                      0) ...[
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.autorenew,
+                                      color: theme.primaryColor,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 4),
                                     Text(
-                                      tipsText,
+                                      localizationHandler.getMessage(
+                                          ref, "regenerate"),
                                       style: TextStyle(
                                         color: theme.textColor,
                                         fontSize: 14,
                                       ),
                                     ),
-                                    const SizedBox(height: 8),
                                   ],
-                                  Container(
-                                    height: 4,
-                                    decoration: BoxDecoration(
-                                      color: ref.watch(
-                                                  regeneratingStateProvider) ==
-                                              0
-                                          ? theme.primaryColor
-                                          : Colors.amber,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
                           ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: theme.secondaryColor,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (ref.watch(regeneratingStateProvider) == 0 &&
+                                    tipsText != null) ...[
+                                  Text(
+                                    tipsText,
+                                    style: TextStyle(
+                                      color: theme.textColor,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                ],
+                                Container(
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        ref.watch(regeneratingStateProvider) ==
+                                                0
+                                            ? theme.primaryColor
+                                            : Colors.amber,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ]
                     ],
                   ),
