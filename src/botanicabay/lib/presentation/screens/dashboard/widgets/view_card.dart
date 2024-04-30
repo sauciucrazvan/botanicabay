@@ -326,6 +326,9 @@ class ViewCard extends HookConsumerWidget {
                                                 .get(title)
                                                 .removeVariable(variable.key);
 
+                                            Hive.box('plants').put(title,
+                                                Hive.box('plants').get(title));
+
                                             ref
                                               ..invalidate(editingStateProvider)
                                               ..read(editingStateProvider
