@@ -25,6 +25,9 @@ class SettingsScreen extends ConsumerWidget {
     SettingsHandler settingsHandler = SettingsHandler();
     LocalizationHandler localizationHandler = LocalizationHandler();
 
+    TextEditingController openAIKeyController =
+        TextEditingController(text: settingsHandler.getValue('openai_key'));
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -211,7 +214,55 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 4),
+
+              // OpenAI Key
+              Divider(color: theme.secondaryColor),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      localizationHandler.getMessage(
+                          ref, "settings_provide_key"),
+                      style: GoogleFonts.openSans(
+                        color: theme.textColor,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      width: MediaQuery.of(context).size.width - 32,
+                      decoration: BoxDecoration(
+                        color: theme.secondaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextField(
+                        controller: openAIKeyController,
+                        maxLines: 1,
+                        maxLength: 16,
+                        obscureText: true,
+                        style: TextStyle(color: theme.textColor),
+                        decoration: InputDecoration(
+                          hintText: "OpenAI Key",
+                          hintStyle: TextStyle(color: theme.textColor),
+                          contentPadding: const EdgeInsets.all(8.0),
+                          border: InputBorder.none,
+                          counterText: "",
+                        ),
+                        cursorColor: theme.primaryColor,
+                        textAlignVertical: TextAlignVertical.top,
+                        onChanged: (key) =>
+                            settingsHandler.setValue('openai_key', key),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Divider(color: theme.secondaryColor),
 
               // Application Version
               Padding(

@@ -3,6 +3,7 @@ const en = {
   "settings": "Settings",
   "settings_choose_theme": "Choose your theme",
   "settings_choose_language": "Choose your language",
+  "settings_provide_key": "Provide your OpenAI Key in order to use AI Tips.",
   "settings_current_version":
       "Currently using %version%\n(running on %platform%)",
   "journal": "Journal",
