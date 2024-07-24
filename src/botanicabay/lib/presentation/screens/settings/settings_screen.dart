@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:botanicabay/logic/ai_handler/providers/model_provider.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +25,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     String locale = ref.watch(languageProvider);
+    String model = ref.watch(modelProvider);
     SettingsHandler settingsHandler = SettingsHandler();
     LocalizationHandler localizationHandler = LocalizationHandler();
 
@@ -287,6 +289,102 @@ class SettingsScreen extends ConsumerWidget {
                         textAlignVertical: TextAlignVertical.top,
                         onChanged: (key) =>
                             settingsHandler.setValue('openai_key', key),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            localizationHandler.getMessage(
+                                ref, "settings_choose_model"),
+                            style: GoogleFonts.openSans(
+                              color: theme.textColor,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            if (!await launchUrl(Uri.https(
+                                'platform.openai.com', '/docs/models'))) {
+                              showElevatedNotification(
+                                  // ignore: use_build_context_synchronously
+                                  context,
+                                  localizationHandler.getMessage(
+                                      ref, "unknown_error"),
+                                  Colors.red);
+                            }
+                          },
+                          child: Icon(
+                            Icons.open_in_new,
+                            color: theme.primaryColor,
+                            size: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.secondaryColor,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      padding: const EdgeInsets.all(6),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: model,
+                          dropdownColor: theme.secondaryColor,
+                          iconEnabledColor: theme.primaryColor,
+                          onChanged: (String? newModel) {
+                            if (newModel != null) {
+                              ref.read(modelProvider.notifier).state = newModel;
+                              settingsHandler.setValue(
+                                  'openai_model', newModel);
+                            }
+                          },
+                          items: [
+                            DropdownMenuItem(
+                              value: "gpt-3.5-turbo",
+                              child: Text(
+                                "GPT 3.5 Turbo",
+                                style: TextStyle(color: theme.textColor),
+                              ),
+                            ),
+                            DropdownMenuItem(
+                              value: "gpt-4-turbo",
+                              child: Text(
+                                "GPT 4 Turbo",
+                                style: TextStyle(color: theme.textColor),
+                              ),
+                            ),
+                            DropdownMenuItem(
+                              value: "gpt-4o",
+                              child: Text(
+                                "GPT 4o",
+                                style: TextStyle(color: theme.textColor),
+                              ),
+                            ),
+                            DropdownMenuItem(
+                              value: "gpt-4o-mini",
+                              child: Text(
+                                "GPT 4o mini",
+                                style: TextStyle(color: theme.textColor),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

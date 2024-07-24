@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:botanicabay/data/models/plant_model.dart';
 import 'package:botanicabay/logic/ai_handler/ai_handler.dart';
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -417,30 +418,65 @@ class ViewCard extends HookConsumerWidget {
                         ),
                       if (panelState == 1) ...[
                         if (ref.watch(regeneratingStateProvider) == 0)
-                          Center(
-                            child: GestureDetector(
-                              onTap: () async {
-                                if (ref.watch(regeneratingStateProvider) == 1) {
-                                  return;
-                                }
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  if (ref.watch(regeneratingStateProvider) ==
+                                      1) {
+                                    return;
+                                  }
 
-                                ref
-                                    .read(regeneratingStateProvider.notifier)
-                                    .state = 1;
+                                  ref
+                                      .read(regeneratingStateProvider.notifier)
+                                      .state = 1;
 
-                                ref.read(aiTipsProvider.notifier).state =
-                                    await OpenAI().prompt(localizationHandler
-                                        .getMessage(ref, "ai_prompt")
-                                        .replaceAll("%plant_name%", title));
-                                ref
-                                    .read(regeneratingStateProvider.notifier)
-                                    .state = 0;
+                                  ref.read(aiTipsProvider.notifier).state =
+                                      await OpenAI().prompt(localizationHandler
+                                          .getMessage(ref, "ai_prompt")
+                                          .replaceAll("%plant_name%", title));
+                                  ref
+                                      .read(regeneratingStateProvider.notifier)
+                                      .state = 0;
 
-                                Plant plant = Hive.box('plants').get(title);
-                                plant.aiTips = ref.watch(aiTipsProvider);
-                                Hive.box('plants').put(title, plant);
-                              },
-                              child: Container(
+                                  Plant plant = Hive.box('plants').get(title);
+                                  plant.aiTips = ref.watch(aiTipsProvider);
+                                  Hive.box('plants').put(title, plant);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: theme.secondaryColor,
+                                  ),
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.autorenew,
+                                          color: theme.primaryColor,
+                                          size: 16,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          localizationHandler.getMessage(
+                                              ref, "regenerate"),
+                                          style: TextStyle(
+                                            color: theme.textColor,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: theme.secondaryColor,
@@ -452,14 +488,14 @@ class ViewCard extends HookConsumerWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        Icons.autorenew,
+                                        Icons.smart_toy,
                                         color: theme.primaryColor,
                                         size: 16,
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
-                                        localizationHandler.getMessage(
-                                            ref, "regenerate"),
+                                        SettingsHandler()
+                                            .getValue("openai_model"),
                                         style: TextStyle(
                                           color: theme.textColor,
                                           fontSize: 14,
@@ -469,7 +505,7 @@ class ViewCard extends HookConsumerWidget {
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         const SizedBox(height: 8),
                         Container(
