@@ -27,7 +27,7 @@ BotanicaBay is written in Dart, using Flutter as the framework. Hive is used to 
 ### FAQ
 
 1. Where do I get my OpenAI Key from?
-- Head over to the [OpenAI API Keys Management](https://platform.openai.com/account/api-keys) website**, press 'Create new secret key', name it whatever you want and simply paste it into the field located in the settings page.
+- Head over to the [OpenAI API Keys Management](https://platform.openai.com/api-keys) website**, press 'Create new secret key', name it whatever you want and simply paste it into the field located in the settings page.
 
 2. Where do I request a feature?
 - Jump over to the [Discussions page](https://github.com/sauciucrazvan/botanicabay/discussions) and create a new topic with your innovative idea.
