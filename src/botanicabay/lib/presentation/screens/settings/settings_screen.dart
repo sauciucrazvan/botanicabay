@@ -14,6 +14,7 @@ import 'package:botanicabay/logic/localization/providers/language_provider.dart'
 import 'package:botanicabay/presentation/themes/dark_theme.dart';
 import 'package:botanicabay/presentation/themes/light_theme.dart';
 import 'package:botanicabay/presentation/widgets/buttons/appbar_leading_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -224,12 +225,33 @@ class SettingsScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      localizationHandler.getMessage(
-                          ref, "settings_provide_key"),
-                      style: GoogleFonts.openSans(
-                        color: theme.textColor,
-                        fontSize: 13,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            localizationHandler.getMessage(
+                                ref, "settings_provide_key"),
+                            style: GoogleFonts.openSans(
+                              color: theme.textColor,
+                              fontSize: 13,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              if (!await launchUrl(Uri.https(
+                                  'platform.openai.com', '/api-keys'))) {
+                                throw Exception('Could not launch url!');
+                              }
+                            },
+                            child: Icon(
+                              Icons.open_in_new,
+                              color: theme.textColor,
+                              size: 16,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 4),

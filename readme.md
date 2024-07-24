@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/fLZb9uX.png" alt="BotanicaBay Logo" width="192" height="48">
 
-[![Badge](https://img.shields.io/badge/version-0.6.5-yellow?style=for-the-badge)](https://github.com/sauciucrazvan/botanicabay/releases)
+[![Badge](https://img.shields.io/badge/version-0.6.6-yellow?style=for-the-badge)](https://github.com/sauciucrazvan/botanicabay/releases)
 [![Badge](https://img.shields.io/github/forks/sauciucrazvan/botanicabay?style=for-the-badge)](https://github.com/sauciucrazvan/botanicabay/forks)
 [![Badge](https://img.shields.io/github/stars/sauciucrazvan/botanicabay?style=for-the-badge)](https://github.com/sauciucrazvan/botanicabay/stargazers)
 [![Badge](https://img.shields.io/github/issues/sauciucrazvan/botanicabay?style=for-the-badge)](https://github.com/sauciucrazvan/botanicabay/issues)
