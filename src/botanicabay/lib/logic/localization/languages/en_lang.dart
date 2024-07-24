@@ -27,6 +27,7 @@ const en = {
   "add_plant_custom_variable": "Add a custom variable",
   "add_plant_custom_variable_description":
       "You can add custom variables to keep notes about every single plant. Updating variables is as simple as keeping their original name.",
+  "unknown_error": "An unknown error occured!",
   "variable": "Variable",
   "variables": "Variable(s)",
   "tips": "AI Tips",

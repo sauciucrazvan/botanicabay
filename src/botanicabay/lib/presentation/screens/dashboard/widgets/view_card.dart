@@ -143,7 +143,7 @@ class ViewCard extends HookConsumerWidget {
                               }
                             },
                             icon: Icon(
-                              !editMode ? Icons.edit_note_rounded : Icons.save,
+                              !editMode ? Icons.edit_note_rounded : Icons.check,
                               color: !editMode
                                   ? Colors.cyanAccent
                                   : theme.primaryColor,
@@ -151,60 +151,62 @@ class ViewCard extends HookConsumerWidget {
                             ),
                           ),
                           const SizedBox(width: 4),
-                          IconButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(8.0),
-                              backgroundColor: theme.secondaryColor,
-                            ),
-                            onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) => AddPlantVariable(
-                                  title: title, variables: variables),
-                            ),
-                            icon: Icon(
-                              Icons.playlist_add_rounded,
-                              color: theme.primaryColor,
-                              size: 20,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          IconButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(8.0),
-                              backgroundColor: theme.secondaryColor,
-                            ),
-                            onPressed: () {
-                              showDialog(
+                          if (!editMode)
+                            IconButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(8.0),
+                                backgroundColor: theme.secondaryColor,
+                              ),
+                              onPressed: () => showDialog(
                                 context: context,
-                                builder: (context) => ConfirmDialog(
-                                  text: localizationHandler
-                                      .getMessage(ref,
-                                          "view_plants_delete_confirmation")
-                                      .replaceAll("%plant_name%", title),
-                                  confirm: () {
-                                    Hive.box('plants').delete(title);
-                                    ref.invalidate(plantsProvider);
-
-                                    showElevatedNotification(
-                                      context,
-                                      localizationHandler
-                                          .getMessage(ref,
-                                              "view_plants_delete_notification")
-                                          .replaceAll("%plant_name%", title),
-                                      theme.primaryColor,
-                                    );
-                                    Navigator.popUntil(
-                                        context, (route) => route.isFirst);
-                                  },
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                              size: 20,
+                                builder: (context) => AddPlantVariable(
+                                    title: title, variables: variables),
+                              ),
+                              icon: Icon(
+                                Icons.playlist_add_rounded,
+                                color: theme.primaryColor,
+                                size: 20,
+                              ),
                             ),
-                          ),
+                          const SizedBox(width: 4),
+                          if (!editMode)
+                            IconButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(8.0),
+                                backgroundColor: theme.secondaryColor,
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => ConfirmDialog(
+                                    text: localizationHandler
+                                        .getMessage(ref,
+                                            "view_plants_delete_confirmation")
+                                        .replaceAll("%plant_name%", title),
+                                    confirm: () {
+                                      Hive.box('plants').delete(title);
+                                      ref.invalidate(plantsProvider);
+
+                                      showElevatedNotification(
+                                        context,
+                                        localizationHandler
+                                            .getMessage(ref,
+                                                "view_plants_delete_notification")
+                                            .replaceAll("%plant_name%", title),
+                                        theme.primaryColor,
+                                      );
+                                      Navigator.popUntil(
+                                          context, (route) => route.isFirst);
+                                    },
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                                size: 20,
+                              ),
+                            ),
                           const Spacer(),
                           // IconButton(
                           //   style: ElevatedButton.styleFrom(
@@ -226,7 +228,12 @@ class ViewCard extends HookConsumerWidget {
                               padding: const EdgeInsets.all(8.0),
                               backgroundColor: theme.secondaryColor,
                             ),
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () {
+                              editMode = false;
+                              ref.watch(editingStateProvider.notifier).state =
+                                  false;
+                              Navigator.pop(context);
+                            },
                             icon: const Icon(
                               Icons.close,
                               color: Colors.red,
@@ -240,7 +247,7 @@ class ViewCard extends HookConsumerWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -307,78 +314,101 @@ class ViewCard extends HookConsumerWidget {
                         Container(
                           decoration: BoxDecoration(
                             color: theme.secondaryColor,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomLeft: Radius.circular(8),
-                            ),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               for (var variable in variables!.entries)
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                Column(
                                   children: [
-                                    if (editMode)
-                                      SizedBox(
-                                        height: 32,
-                                        width: 32,
-                                        child: IconButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                theme.secondaryColor,
-                                          ),
-                                          onPressed: () {
-                                            Hive.box('plants')
-                                                .get(title)
-                                                .removeVariable(variable.key);
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: (MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      220) /
+                                                  2,
+                                              child: Text(
+                                                variable.key,
+                                                style: TextStyle(
+                                                  color: theme.textColor,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            if (editMode)
+                                              Container(
+                                                width: 32,
+                                                height: 32,
+                                                padding: const EdgeInsets.only(
+                                                    top: 4),
+                                                child: IconButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                  ),
+                                                  onPressed: () {
+                                                    Hive.box('plants')
+                                                        .get(title)
+                                                        .removeVariable(
+                                                            variable.key);
 
-                                            Hive.box('plants').put(title,
-                                                Hive.box('plants').get(title));
+                                                    Hive.box('plants').put(
+                                                        title,
+                                                        Hive.box('plants')
+                                                            .get(title));
 
-                                            ref
-                                              ..invalidate(editingStateProvider)
-                                              ..read(editingStateProvider
-                                                          .notifier)
-                                                      .state =
-                                                  true; // updating entries
-                                          },
-                                          icon: const Icon(
-                                            Icons.delete_forever_rounded,
-                                            color: Colors.red,
-                                            size: 16,
+                                                    ref
+                                                      ..invalidate(
+                                                          editingStateProvider)
+                                                      ..read(editingStateProvider
+                                                                  .notifier)
+                                                              .state =
+                                                          true; // updating entries
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons
+                                                        .delete_forever_rounded,
+                                                    color: Colors.red,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 4),
+                                        SizedBox(
+                                          width: (MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2),
+                                          child: Text(
+                                            variable.value,
+                                            style: TextStyle(
+                                              color: theme.textColor,
+                                              fontSize: 14,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    SizedBox(
-                                      width:
-                                          (MediaQuery.of(context).size.width -
-                                                  100) /
-                                              2,
-                                      child: Text(
-                                        variable.key + ":",
-                                        style: TextStyle(
-                                          color: theme.textColor,
-                                          fontSize: 14,
-                                        ),
-                                      ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 4),
-                                    SizedBox(
-                                      width:
-                                          (MediaQuery.of(context).size.width -
-                                                  (editMode ? 150 : 100)) /
-                                              2,
-                                      child: Text(
-                                        variable.value,
-                                        style: TextStyle(
-                                          color: theme.textColor,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ),
+                                    Divider(color: theme.backgroundColor)
                                   ],
                                 ),
                             ],

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -218,7 +219,10 @@ class SettingsScreen extends ConsumerWidget {
               const SizedBox(height: 4),
 
               // OpenAI Key
-              Divider(color: theme.secondaryColor),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(color: theme.secondaryColor),
+              ),
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -242,12 +246,17 @@ class SettingsScreen extends ConsumerWidget {
                             onTap: () async {
                               if (!await launchUrl(Uri.https(
                                   'platform.openai.com', '/api-keys'))) {
-                                throw Exception('Could not launch url!');
+                                showElevatedNotification(
+                                    // ignore: use_build_context_synchronously
+                                    context,
+                                    localizationHandler.getMessage(
+                                        ref, "unknown_error"),
+                                    Colors.red);
                               }
                             },
                             child: Icon(
                               Icons.open_in_new,
-                              color: theme.textColor,
+                              color: theme.primaryColor,
                               size: 16,
                             ),
                           ),
@@ -284,7 +293,10 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ),
 
-              Divider(color: theme.secondaryColor),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(color: theme.secondaryColor),
+              ),
 
               // Application Version
               Padding(
