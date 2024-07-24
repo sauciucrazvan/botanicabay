@@ -232,16 +232,19 @@ class SettingsScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            localizationHandler.getMessage(
-                                ref, "settings_provide_key"),
-                            style: GoogleFonts.openSans(
-                              color: theme.textColor,
-                              fontSize: 13,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.75,
+                            child: Text(
+                              localizationHandler.getMessage(
+                                  ref, "settings_provide_key"),
+                              style: GoogleFonts.openSans(
+                                color: theme.textColor,
+                                fontSize: 13,
+                              ),
                             ),
                           ),
                           GestureDetector(

@@ -1,1 +1,1 @@
-const applicationVersion = "BotanicaBay 0.6.9";
+const applicationVersion = "BotanicaBay 0.7.0";
