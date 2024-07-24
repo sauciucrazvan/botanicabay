@@ -342,7 +342,8 @@ class ViewCard extends HookConsumerWidget {
                                                       220) /
                                                   2,
                                               child: Text(
-                                                variable.key,
+                                                (variable.key as String)
+                                                    .toUpperCase(),
                                                 style: TextStyle(
                                                   color: theme.textColor,
                                                   fontSize: 15,
@@ -415,60 +416,61 @@ class ViewCard extends HookConsumerWidget {
                           ),
                         ),
                       if (panelState == 1) ...[
-                        Center(
-                          child: GestureDetector(
-                            onTap: () async {
-                              if (ref.watch(regeneratingStateProvider) == 1) {
-                                return;
-                              }
+                        if (ref.watch(regeneratingStateProvider) == 0)
+                          Center(
+                            child: GestureDetector(
+                              onTap: () async {
+                                if (ref.watch(regeneratingStateProvider) == 1) {
+                                  return;
+                                }
 
-                              ref
-                                  .read(regeneratingStateProvider.notifier)
-                                  .state = 1;
+                                ref
+                                    .read(regeneratingStateProvider.notifier)
+                                    .state = 1;
 
-                              ref.read(aiTipsProvider.notifier).state =
-                                  await OpenAI().prompt(localizationHandler
-                                      .getMessage(ref, "ai_prompt")
-                                      .replaceAll("%plant_name%", title));
-                              ref
-                                  .read(regeneratingStateProvider.notifier)
-                                  .state = 0;
+                                ref.read(aiTipsProvider.notifier).state =
+                                    await OpenAI().prompt(localizationHandler
+                                        .getMessage(ref, "ai_prompt")
+                                        .replaceAll("%plant_name%", title));
+                                ref
+                                    .read(regeneratingStateProvider.notifier)
+                                    .state = 0;
 
-                              Plant plant = Hive.box('plants').get(title);
-                              plant.aiTips = ref.watch(aiTipsProvider);
-                              Hive.box('plants').put(title, plant);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: theme.secondaryColor,
-                              ),
-                              width: MediaQuery.of(context).size.width / 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.autorenew,
-                                      color: theme.primaryColor,
-                                      size: 16,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      localizationHandler.getMessage(
-                                          ref, "regenerate"),
-                                      style: TextStyle(
-                                        color: theme.textColor,
-                                        fontSize: 14,
+                                Plant plant = Hive.box('plants').get(title);
+                                plant.aiTips = ref.watch(aiTipsProvider);
+                                Hive.box('plants').put(title, plant);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: theme.secondaryColor,
+                                ),
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.autorenew,
+                                        color: theme.primaryColor,
+                                        size: 16,
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        localizationHandler.getMessage(
+                                            ref, "regenerate"),
+                                        style: TextStyle(
+                                          color: theme.textColor,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
                         const SizedBox(height: 8),
                         Container(
                           decoration: BoxDecoration(

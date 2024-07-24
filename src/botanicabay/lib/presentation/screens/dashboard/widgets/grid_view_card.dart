@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:botanicabay/data/models/themes_model.dart';
-import 'package:botanicabay/data/providers/theme_provider.dart';
 import 'package:botanicabay/logic/limit_string.dart';
 import 'package:botanicabay/logic/localization/localization_handler.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,7 @@ class GridViewCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Themes theme = ref.watch(themesProvider);
+    //Themes theme = ref.watch(themesProvider);
     LocalizationHandler localizationHandler = LocalizationHandler();
 
     return ClipRRect(
@@ -84,27 +82,15 @@ class GridViewCard extends ConsumerWidget {
                               variables![localizationHandler.getMessage(
                                       ref, "description")] !=
                                   null)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.note_alt,
-                                  color: theme.primaryColor,
-                                  size: 16,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  limitString(
-                                      variables![localizationHandler.getMessage(
-                                          ref, "description")],
-                                      24),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              limitString(
+                                  variables![localizationHandler.getMessage(
+                                      ref, "description")],
+                                  24),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
                             ),
                         ],
                       ),
