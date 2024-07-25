@@ -5,6 +5,7 @@ const en = {
   "settings_choose_language": "Choose your language",
   "settings_choose_model": "Choose the AI Model",
   "settings_provide_key": "Provide your OpenAI Key in order to use AI Tips.",
+  "settings_show_preview": "Show previews",
   "settings_current_version":
       "Currently using %version%\n(running on %platform%)",
   "journal": "Journal",

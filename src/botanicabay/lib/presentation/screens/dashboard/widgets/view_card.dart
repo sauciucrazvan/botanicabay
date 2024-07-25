@@ -495,7 +495,8 @@ class ViewCard extends HookConsumerWidget {
                                       const SizedBox(width: 4),
                                       Text(
                                         SettingsHandler()
-                                            .getValue("openai_model"),
+                                                .getValue("openai_model") ??
+                                            "gpt-3.5-turbo",
                                         style: TextStyle(
                                           color: theme.textColor,
                                           fontSize: 14,
