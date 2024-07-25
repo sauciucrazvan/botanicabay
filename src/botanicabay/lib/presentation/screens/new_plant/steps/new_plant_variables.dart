@@ -1,5 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
+import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
+import 'package:botanicabay/presentation/screens/dashboard/providers/viewtype_provider.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/grid_view_card.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/list_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -25,6 +30,7 @@ class AddNewPlantVariables extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Themes theme = ref.watch(themesProvider);
     LocalizationHandler localizationHandler = LocalizationHandler();
+    SettingsHandler settingsHandler = SettingsHandler();
     TextEditingController variableController = useTextEditingController();
     TextEditingController valueController = useTextEditingController();
 
@@ -53,9 +59,40 @@ class AddNewPlantVariables extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
+                  if (settingsHandler.getValue("show_preview")) ...[
+                    // Cards
+                    if (ref.watch(viewTypeProvider) == ViewType.grid) ...[
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: [
+                          GridViewCard(
+                            backgroundImage: imageBytes,
+                            title: plantName,
+                            aiTips: null,
+                            variables: null,
+                            preview: true,
+                          ),
+                        ],
+                      ),
+                    ],
+
+                    if (ref.watch(viewTypeProvider) == ViewType.list) ...[
+                      ListViewCard(
+                        backgroundImage: imageBytes,
+                        title: plantName,
+                        aiTips: null,
+                        variables: null,
+                        preview: true,
+                      ),
+                    ],
+
+                    const SizedBox(height: 8),
+                  ],
+
                   // Choose a picture
                   Lottie.asset("assets/animations/custom_variable.json",
-                      width: 128, height: 128),
+                      width: 64, height: 64),
 
                   Column(
                     children: [
@@ -65,6 +102,7 @@ class AddNewPlantVariables extends HookConsumerWidget {
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(

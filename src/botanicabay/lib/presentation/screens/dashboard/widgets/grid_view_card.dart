@@ -12,6 +12,7 @@ class GridViewCard extends ConsumerWidget {
   final String title;
   final String? aiTips;
   final Map? variables;
+  final bool preview;
 
   const GridViewCard({
     super.key,
@@ -19,6 +20,7 @@ class GridViewCard extends ConsumerWidget {
     required this.title,
     required this.aiTips,
     required this.variables,
+    this.preview = false,
   });
 
   @override
@@ -99,53 +101,54 @@ class GridViewCard extends ConsumerWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                // Container(
-                //   decoration: BoxDecoration(
-                //     color: Colors.black.withOpacity(0.5),
-                //     borderRadius: BorderRadius.circular(12),
-                //   ),
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(4.0),
-                //     child: Icon(
-                //       synced ? Icons.sync : Icons.sync_disabled,
-                //       color: synced ? theme.primaryColor : Colors.redAccent,
-                //       size: 20,
-                //     ),
-                //   ),
-                // ),
-                GestureDetector(
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (context) => ViewCard(
-                      backgroundImage: backgroundImage,
-                      title: title,
-                      aiTips: aiTips,
-                      variables: variables,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(12),
+            if (!preview)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.black.withOpacity(0.5),
+                  //     borderRadius: BorderRadius.circular(12),
+                  //   ),
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(4.0),
+                  //     child: Icon(
+                  //       synced ? Icons.sync : Icons.sync_disabled,
+                  //       color: synced ? theme.primaryColor : Colors.redAccent,
+                  //       size: 20,
+                  //     ),
+                  //   ),
+                  // ),
+                  GestureDetector(
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => ViewCard(
+                        backgroundImage: backgroundImage,
+                        title: title,
+                        aiTips: aiTips,
+                        variables: variables,
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.visibility,
-                          color: Colors.white,
-                          size: 20,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(
+                            Icons.visibility,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:botanicabay/logic/ai_handler/providers/model_provider.dart';
+import 'package:botanicabay/presentation/screens/settings/providers/settings_show_preview_provider.dart';
 import 'package:botanicabay/presentation/widgets/elevated_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,7 @@ class SettingsScreen extends ConsumerWidget {
     Themes theme = ref.watch(themesProvider);
     String locale = ref.watch(languageProvider);
     String model = ref.watch(modelProvider);
+    bool preview = ref.watch(showPreviewProvider);
     SettingsHandler settingsHandler = SettingsHandler();
     LocalizationHandler localizationHandler = LocalizationHandler();
 
@@ -389,6 +391,41 @@ class SettingsScreen extends ConsumerWidget {
                           ],
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(color: theme.secondaryColor),
+              ),
+
+              // Preview
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        localizationHandler.getMessage(
+                            ref, "settings_show_preview"),
+                        style: GoogleFonts.openSans(
+                          color: theme.textColor,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Checkbox(
+                      activeColor: theme.primaryColor,
+                      value: preview,
+                      onChanged: (value) {
+                        ref.read(showPreviewProvider.notifier).state = value!;
+                        settingsHandler.setValue('show_preview', value);
+                      },
                     ),
                   ],
                 ),

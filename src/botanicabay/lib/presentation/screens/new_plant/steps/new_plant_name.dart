@@ -1,5 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:botanicabay/logic/settings_logic/settings_handler.dart';
+import 'package:botanicabay/presentation/screens/dashboard/models/viewtype_model.dart';
+import 'package:botanicabay/presentation/screens/dashboard/providers/viewtype_provider.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/grid_view_card.dart';
+import 'package:botanicabay/presentation/screens/dashboard/widgets/list_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,6 +30,7 @@ class AddNewPlantName extends HookConsumerWidget {
     TextEditingController nameController = useTextEditingController();
 
     LocalizationHandler localizationHandler = LocalizationHandler();
+    SettingsHandler settingsHandler = SettingsHandler();
 
     return Scaffold(
       appBar: AppBar(
@@ -51,6 +57,37 @@ class AddNewPlantName extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
+                  if (settingsHandler.getValue("show_preview")) ...[
+                    // Cards
+                    if (ref.watch(viewTypeProvider) == ViewType.grid) ...[
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: [
+                          GridViewCard(
+                            backgroundImage: imageBytes,
+                            title: "???",
+                            aiTips: null,
+                            variables: null,
+                            preview: true,
+                          ),
+                        ],
+                      ),
+                    ],
+
+                    if (ref.watch(viewTypeProvider) == ViewType.list) ...[
+                      ListViewCard(
+                        backgroundImage: imageBytes,
+                        title: "???",
+                        aiTips: null,
+                        variables: null,
+                        preview: true,
+                      ),
+                    ],
+
+                    const SizedBox(height: 8),
+                  ],
+
                   // Choose a picture
                   Lottie.asset("assets/animations/name_your_plant.json",
                       width: 128, height: 128),
@@ -63,6 +100,7 @@ class AddNewPlantName extends HookConsumerWidget {
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(

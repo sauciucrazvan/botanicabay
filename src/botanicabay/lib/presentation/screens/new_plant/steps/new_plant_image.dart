@@ -68,6 +68,7 @@ class AddNewPlantImage extends ConsumerWidget {
                         style: GoogleFonts.openSans(
                           color: theme.textColor,
                           fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
